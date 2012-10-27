@@ -30,6 +30,7 @@ package
 		
 		private function loaderInfo_completeHandler(event:Event):void
 		{
+			
 			// Add hiResStats to stage for debugging
 			this.resStats = new Stats();
 			this.addChild(resStats);
