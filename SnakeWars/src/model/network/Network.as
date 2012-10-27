@@ -211,42 +211,10 @@
 		
 		private function onJoin(evt:SFSEvent):void
 		{
-			var currentLobbyRoomName : String = "";//gameConventions.getDefaultLobbyRoomForGame(this.lobbyMode);
-			trace(currentLobbyRoomName);
-			
-			var roomName:String = evt.params.room.name;
-			var theSame:Boolean = ( roomName == currentLobbyRoomName );
-			
-			if(theSame) {
-				trace("they are the same");
-				var room:SFSRoom = evt.params.room as SFSRoom;
-				trace(room.capacity+" room capacity");
-				trace(room.groupId+" group id");
-				trace(room.name+" room name");
-				trace(room.userList+" player list length");
-				//trebuie aranjat un pic in pula mea
-				//currentUsersArray = room.userList;
-				//
-				trace(currentUsersArray.length+ " currentUsersArray.length");
-				for(var i:int=0;i<currentUsersArray.length;i++) {
-					var user:SFSUser = room.userList[i];
-					var userInfo:Object = new Object();//UserInfo
-					var userType:String = (user.getVariable("userType").getStringValue());
-					userInfo.userType = userType;
-					userInfo.username = user.name;
-					if(userType == "oauth") {userInfo.iconURL = (user.getVariable("imageURL").getStringValue());}
-					// user.getVariable("coins");
-					userInfo.noOfCoins = 200;
-					userInfo.rating = 1201;
-					currentUsersArray.push(userInfo);
-				}
-				
-				for(var i:int=0;i<currentUsersArray.length;i++) trace(currentUsersArray.name);
-				
-				//
-				dispatchEvent(new Event(Network.YOUR_LOBBY_ROOM_JOINED));
-			}
-			
+			var roomJoined:Room = evt.params.room;
+			trace("============== ON JOIN ROOM ===============");
+			trace(roomJoined.isGame);
+			trace("============== ON JOIN ROOM END===============");
 		}
  
 		private function onJoinError(evt:SFSEvent):void

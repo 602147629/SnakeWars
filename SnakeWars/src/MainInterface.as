@@ -36,7 +36,7 @@ package
 			viewInst = new View();
 			viewInst.init();
 			addChild(viewInst);
-			
+			viewInst.addEventListener(View.USERNAME_SELECTED, usernameSelectedHandler);
 		}
 		
 	}
