@@ -23,6 +23,9 @@
       <path-element>C:\Hackathon\Proiect\SnakeWars\src</path-element>
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
+    <library-path append="true">
+      <path-element>C:\Hackathon\Proiect\SnakeWars\lib\as3-signals-v0.8.swc</path-element>
+    </library-path>
   </compiler>
   <file-specs>
     <path-element>C:\Hackathon\Proiect\SnakeWars\src\MainWeb.as</path-element>
