@@ -5,11 +5,15 @@ package view.util
 	
 	public class ContentRequester extends Sprite
 	{
-		public var contentId:int = -1;
+		public static const REQUEST_NEW_CONTENT:String = "requestNewContent";	
+		public static const REQUEST_ROOM_LIST:String = "requestRoomList";
+		public static const CREATE_ROOM:String = "createRoom";
 		
+		public var contentId:int = -1;
 		public var contentToRequestId:int = -1;
 		public var dataObject:Object;
-		public static var REQUEST_NEW_CONTENT:String = "requestNewContent";	
+		
+		public var isInit:Boolean = false;
 		
 		public function ContentRequester() 
 		{
@@ -31,6 +35,17 @@ package view.util
 			this.dataObject = contentData;
 			dispatchEvent(new Event(ContentRequester.REQUEST_NEW_CONTENT));
 		}
+		
+		protected function refreshRoomList():void
+		{
+			dispatchEvent(new Event(ContentRequester.REQUEST_ROOM_LIST,true));
+		}
+		
+		protected function createRoom():void
+		{
+			dispatchEvent(new Event(ContentRequester.CREATE_ROOM, true));
+		}
+		
 	}
 
 }

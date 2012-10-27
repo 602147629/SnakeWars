@@ -5,23 +5,24 @@ package view.screens
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.Sprite;
+	import starling.events.Event;
 	import starling.text.TextField;
 	import starling.textures.Texture;
 	import view.util.Assets;
+	import view.util.ContentManipulator;
 	import view.util.ContentRequester;
 	import feathers.controls.TextInput;
 	
 	public class FirstScreen extends ContentRequester
-	{
-		[Embed(source = "/assets/touch_marker.png")]
-		private static const PlayBtn:Class;
+	{	
+		public static const GOTO_LOBBY:String = "gotoLobby";
 		
 		private var playBtn:Button;
 		private var nameTextField:TextField;
 		private var errorTextField:TextField;
 		private var textInput:TextInput;
 		
-		private var userName:String = "";
+		private var userName:String = "Name";
 		
 		public function FirstScreen() 
 		{
@@ -33,7 +34,7 @@ package view.screens
 			const btnTexture:Texture = Texture.fromBitmapData(Assets.getRectangleBitmap(120,30, 0xCCCCCC));
 			const currentStageWidth:int = Starling.current.stage.stageWidth;
 			const currentStageHeight:int = Starling.current.stage.stageHeight;
-			var separatorY:int = currentStageWidth * 0.02; 
+			const separatorY:int = currentStageHeight * 0.02; 
 		
 			
 			nameTextField = new TextField(120, 20, "Enter your name");
@@ -52,19 +53,34 @@ package view.screens
 			textInput.x = textInputQuad.x;
 			textInput.y = textInputQuad.y;
 			textInput.text = "Name";
+			textInput.onChange.add(textInputOnChange);
 			addChild(textInput);
 			
 			playBtn = new Button(btnTexture, "Play");
 			playBtn.x = (currentStageWidth - playBtn.width) * .5;
 			playBtn.y = textInputQuad.y + textInputQuad.height + separatorY;
+			playBtn.addEventListener(Event.TRIGGERED, onPlayHandler);
 			addChild(playBtn);
 			
-			errorTextField = new TextField(200, 40, "Error:");
+			errorTextField = new TextField(300, 60, "Error:");
 			errorTextField.color = 0xFF0000;
 			errorTextField.x = (currentStageWidth - errorTextField.width) * .5;
 			errorTextField.y = nameTextField.y - errorTextField.height - separatorY;
 			errorTextField.visible = false;
 			addChild(errorTextField);
+			
+			isInit = true;
+		}
+		
+		private function textInputOnChange(textInput:TextInput):void
+		{
+			this.userName = textInput.text;
+		}
+		
+		private function onPlayHandler(e:Event):void
+		{
+			// Request new content
+			this.requestContent(1, userName);
 		}
 		
 	}
