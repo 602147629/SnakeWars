@@ -2,7 +2,8 @@ package view
 {
 	import starling.display.Sprite;
 	import view.util.ContentManipulator;
-
+	import starling.events.Event;
+	import view.util.ContentRequester;
 	
 	public class View extends Sprite
 	{
@@ -21,12 +22,34 @@ package view
 			contentManipulator = new ContentManipulator();
 			contentManipulator.init();
 			addChild(contentManipulator);
+			
+			contentManipulator.addEventListener(ContentManipulator.CONTENT_CHANGED,contentChangedHandler);
+		}
+		
+		private function contentChangedHandler(e:Event):void
+		{
+			var contentRequestId:int = ContentManipulator(e.target).ContentPointerId;
+			
+			switch(contentRequestId)
+			{
+				case 0:
+					break;
+				case 1:
+					goToLobbyScreen();
+					break;
+				case 2:
+					goToGameScreen();
+					break;
+				case -1:
+					showError("Could not retrieve content");
+					break;
+			}
 		}
 		
 		// requests
 		public function goToLobbyScreen()
 		{
-			
+			trace("Lobby");
 		}
 		
 		public function showError(errorMessage:String)
@@ -36,7 +59,7 @@ package view
 		
 		public function goToGameScreen()
 		{
-			
+			trace("Game");
 		}
 		
 		

@@ -11,6 +11,8 @@ package view.util
 		public var dataObject:Object;
 		public static var REQUEST_NEW_CONTENT:String = "requestNewContent";	
 		
+		public var isInit:Boolean = false;
+		
 		public function ContentRequester() 
 		{
 			

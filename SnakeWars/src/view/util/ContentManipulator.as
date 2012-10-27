@@ -7,6 +7,7 @@ package view.util
 	
 	public class ContentManipulator extends Sprite
 	{
+		public static var CONTENT_CHANGED:String = "contentChanged";
 		
 		private var contentArray:Array;
 		
@@ -62,7 +63,16 @@ package view.util
 			oldContentPointer.visible = false;
 			contentPointer = contentArray[ContentRequester(e.target).contentToRequestId];			
 			contentPointer.visible = true;
-			contentPointer.init(ContentRequester(e.target).dataObject);
+			
+			if(ContentRequester(e.target).dataObject)
+				contentPointer.init(ContentRequester(e.target).dataObject);
+				
+			dispatchEvent(new Event(CONTENT_CHANGED));
+		}
+		
+		public function get ContentPointerId():int
+		{
+			return this.contentPointer.contentId;
 		}
 	}
 

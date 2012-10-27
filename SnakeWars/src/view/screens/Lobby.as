@@ -15,13 +15,17 @@ package view.screens
 		}
 
 		override public function init(initData:Object):void
-		{
+		{	
 			connTextField = new TextField(200, 20, "Connecting...");
+			connTextField.x = 300;
+			connTextField.y = 200;
 			addChild(connTextField);
 			
 			errorTextField = new TextField(200, 20, "Error: ");
 			errorTextField.visible = false;
 			addChild(errorTextField);
+			
+			isInit = true;
 		}
 		
 	}
