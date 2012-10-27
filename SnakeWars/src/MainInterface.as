@@ -39,6 +39,11 @@ package
 			viewInst.addEventListener(View.USERNAME_SELECTED, usernameSelectedHandler);
 		}
 		
+		private function usernameSelectedHandler(e:Event)
+		{
+			
+		}
+		
 	}
 
 }
