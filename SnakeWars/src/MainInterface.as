@@ -32,6 +32,9 @@ package
 			// Initiate model
 			modelInst = Model.getInstance();
 			
+			//test
+			modelInst.startNetworkInteraction();
+			//
 			// Initiate view
 			viewInst = new View();
 			viewInst.init();
