@@ -10,7 +10,7 @@ package model
 		public static var instance:Model;
 		private static var allowInstantiation:Boolean = false;
 		
-		public var DESIRED_USERNAME:String = "";
+		public var DESIRED_USERNAME:String = "eu";
 				
 		public var network:Network = new Network();
 		
