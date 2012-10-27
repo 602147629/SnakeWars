@@ -179,9 +179,8 @@
 				if(guestLogin == true) {username = "";password="";optionalParam.putUtfString("loginMethod","none");};
 				}
 			*/	
-			password = "";
 			
-			sfs.send( new LoginRequest(username, password, ZONE_NAME, null));
+			sfs.send( new LoginRequest(username, "", ZONE_NAME, null));
 		}
 
 		private function onConnectionLost(e:SFSEvent)
