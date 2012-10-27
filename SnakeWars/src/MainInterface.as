@@ -1,6 +1,8 @@
 package  
 {
 
+	import model.Model;
+	import starling.core.Starling;
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.Sprite;
@@ -8,12 +10,18 @@ package
 	import starling.text.BitmapFont;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
+	import view.View;
 	
 	public class MainInterface extends Sprite
 	{
+		private var modelInst:Model;
+		private var viewInst:View;
 		
 		public function MainInterface() 
 		{
+			Starling.current.stage.stageWidth = 800;
+			Starling.current.stage.stageHeight = 480;
+			
 			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 		}
 		
@@ -21,8 +29,15 @@ package
 		{
 			this.removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			
-			var quad:Quad = new Quad(10, 10, 0x000000);
-			addChild(quad);
+			// Initiate model
+			modelInst = new Model();
+			modelInst.init();
+			
+			// Initiate view
+			viewInst = new View();
+			viewInst.init();
+			addChild(viewInst);
+			
 		}
 		
 	}
