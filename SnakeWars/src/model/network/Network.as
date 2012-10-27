@@ -27,6 +27,8 @@
 	{
 
 		//L O B B Y   E V E N T S
+		public static var ERROR_MESSAGE:String = "errorMessage";
+		
 		public static var CONNECTION_FAILURE:String="connectionFailure";
 		
 		public static var CONNECTION_LOST:String="connectionLost";
@@ -83,14 +85,8 @@
 		private var sfs:SmartFox;
 		private var groupsSubscribed:Array=new Array();
 
-		private var username:String="test";
-		private var uniqueUserKey:String=null;
-		private var network:String=null;
-		private var imageURL:String=null;
-		
-		private var password:String="";
-		private var email:String=null;
-		
+		private var username:String="sabin";
+				
 		private var dtdLogin:Boolean = false;
 		private var dtdRegister:Boolean = false;
 		private var socialNetworkLogin:Boolean = false;
@@ -101,36 +97,13 @@
 			
 		}
 		
-		public function setDTDLoginCredentials(user:String,pass:String) {
-			this.username = user;
-			this.password = pass;
-			dtdLogin = true;
-		}
-		
-		public function setDTDRegisterCredentials(user:String,pass:String,email:String) {
-			this.username = user;
-			this.password = pass;
-			this.email = email;
-			this.dtdRegister = true;
-		}
-		
-		public function setOAuthLoginCredentials(user:String, network:String,uniqueUserK:String,imageURL:String) {
-			this.username = user;
-			this.network = network;
-			this.uniqueUserKey = uniqueUserK;
-			this.imageURL = imageURL;
-			socialNetworkLogin = true;
-		}
-		
-		public function setGuestLogin() {
-			guestLogin = true;
-		}
-		
-		public function init() {
-			sfs = new SmartFox(true);
+		public function init(usernameParam:String) {
+			
+			this.username = usernameParam+ Math.random()+Math.random();
+			
+			sfs = new SmartFox(false);// --- debug true
 			sfs.connect("54.247.26.55",9933);
 			// Turn on the debug feature
-			sfs.debug = true;
 			// Add SFS2X event listeners
 			sfs.addEventListener(SFSEvent.CONNECTION, onConnection);
 			sfs.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
@@ -219,6 +192,8 @@
 		
 		private function onLogin(e:SFSEvent) {
 			trace("logged in --------------------------");
+			
+			trace(sfs.userManager.getUserList().toString());
 			
 			var roomNameToJoin:String = "SnakeLimbo";//gameConventions.getDefaultLobbyRoomForGame(lobbyMode);
 			var roomGroupToSubscribe:String = ""; //gameConventions.getDefaultGroupNameForGame(lobbyMode);
