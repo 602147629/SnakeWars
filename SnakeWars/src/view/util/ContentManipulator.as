@@ -31,6 +31,11 @@ package view.util
 			setEventListeners();
 		}
 		
+		public function get ContentPointerId():int
+		{
+			return this.contentPointer.contentId;
+		}
+		
 		private function setContent():void
 		{
 			contentArray[0] = firstScreen;
@@ -55,9 +60,10 @@ package view.util
 				ContentRequester(contentArray[i]).contentId = i;
 				ContentRequester(contentArray[i]).addEventListener(ContentRequester.REQUEST_NEW_CONTENT, newContentRequested);
 			}
+			
 		}
 		
-		private function newContentRequested(e:Event)
+		private function newContentRequested(e:Event):void
 		{
 			oldContentPointer = contentPointer;
 			oldContentPointer.visible = false;
@@ -68,11 +74,6 @@ package view.util
 				contentPointer.init(ContentRequester(e.target).dataObject);
 				
 			dispatchEvent(new Event(CONTENT_CHANGED));
-		}
-		
-		public function get ContentPointerId():int
-		{
-			return this.contentPointer.contentId;
 		}
 	}
 

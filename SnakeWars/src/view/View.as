@@ -23,7 +23,9 @@ package view
 			contentManipulator.init();
 			addChild(contentManipulator);
 			
-			contentManipulator.addEventListener(ContentManipulator.CONTENT_CHANGED,contentChangedHandler);
+			contentManipulator.addEventListener(ContentManipulator.CONTENT_CHANGED, contentChangedHandler);
+			contentManipulator.addEventListener(ContentRequester.REQUEST_ROOM_LIST, getRoomListHandler);
+			contentManipulator.addEventListener(ContentRequester.CREATE_ROOM, createRoomHandler);
 		}
 		
 		private function contentChangedHandler(e:Event):void
@@ -61,6 +63,17 @@ package view
 		{
 			trace("Game");
 		}
+		
+		public function getRoomListHandler(e:Event):void
+		{
+			trace("GetRoomList");
+		}
+		
+		public function createRoomHandler(e:Event):void
+		{
+			trace("Create room");
+		}
+		
 		
 		
 	}
