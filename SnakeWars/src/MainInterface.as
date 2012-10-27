@@ -30,8 +30,7 @@ package
 			this.removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			
 			// Initiate model
-			modelInst = new Model();
-			modelInst.init();
+			modelInst = Model.getInstance();
 			
 			// Initiate view
 			viewInst = new View();
