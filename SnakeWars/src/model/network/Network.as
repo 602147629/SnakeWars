@@ -83,7 +83,7 @@
 		private var sfs:SmartFox;
 		private var groupsSubscribed:Array=new Array();
 
-		private var username:String="test";
+		private var username:String="sabin";
 		private var uniqueUserKey:String=null;
 		private var network:String=null;
 		private var imageURL:String=null;
