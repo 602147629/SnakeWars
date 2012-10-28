@@ -54,7 +54,7 @@ package model.game
 			if (isEmpty())
 			{
 				trace("Empty");
-				return null;
+				return new Point();
 			}
 			
 			return last.position;
