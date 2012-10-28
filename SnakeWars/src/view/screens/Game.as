@@ -3,6 +3,7 @@ package view.screens
 	import starling.core.Starling;
 	import starling.display.Button;
 	import starling.events.Event;
+	import starling.events.TouchEvent;
 	import starling.text.TextField;
 	import starling.textures.Texture;
 	import view.game.*;
@@ -20,6 +21,8 @@ package view.screens
 		private var tableManager:TableManager;
 		
 		private var readyBtn:Button;
+		private var victoryBtn:Button;
+		private var defeatBtn:Button;
 		private var errorTextField:TextField;
 		
 		public function Game() 
@@ -39,6 +42,20 @@ package view.screens
 			readyBtn.y = (currentScreenHeight - readyBtn.height) * .5;
 			readyBtn.addEventListener(Event.TRIGGERED, readyBtnTriggered);
 			addChild(readyBtn);
+			
+			victoryBtn = new Button(btnTexture, "Victory!");
+			victoryBtn.x = (currentScreenWidth - victoryBtn.width) * .5;
+			victoryBtn.y = (currentScreenHeight - victoryBtn.height) * .5;
+			victoryBtn.addEventListener(Event.TRIGGERED, victoryBtnTriggered);
+			victoryBtn.visible = false;
+			addChild(victoryBtn);
+			
+			defeatBtn = new Button(btnTexture, "Defeat!");
+			defeatBtn.x = (currentScreenWidth - defeatBtn.width) * .5;
+			defeatBtn.y = (currentScreenHeight - defeatBtn.height) * .5;
+			defeatBtn.addEventListener(Event.TRIGGERED, defeatBtnTriggered);
+			victoryBtn.visible = false;
+			addChild(defeatBtn);
 			
 			errorTextField = new TextField(300, 60, "Error: ");
 			errorTextField.color = 0xFF0000;
@@ -73,6 +90,11 @@ package view.screens
 			tableManager.visible = true;
 		}
 		
+		public function resetGame():void
+		{
+			tableManager.resetAllPieces();
+		}
+		
 		override public function showErrorMessage(errorMessage:String):void
 		{
 			this.errorTextField.text = errorMessage;
@@ -82,6 +104,26 @@ package view.screens
 		private function readyBtnTriggered(e:Event):void
 		{
 			dispatchEvent(new Event(USER_IS_READY, true));
+		}
+		
+		public function showVictory():void
+		{
+			victoryBtn.visible = true;
+		}
+		
+		private function victoryBtnTriggered(e:Event):void
+		{
+			victoryBtn.visible = false;
+		}
+		
+		public function showDefeat():void
+		{
+			defeatBtn.visible = true;
+		}
+		
+		private function defeatBtnTriggered(e:Event):void
+		{
+			defeatBtn.visible = false;
 		}
 	}
 

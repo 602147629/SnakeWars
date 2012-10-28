@@ -3,8 +3,8 @@ package model.game
 	
 	public class Table 
 	{
-		private const rows:int = 13;
-		private const cols:int = 11;
+		private const rows:int = 64;
+		private const cols:int = 64;
 		
 		public function Table() 
 		{

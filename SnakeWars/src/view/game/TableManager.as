@@ -1,10 +1,12 @@
 package view.game 
 {
 	import flash.display.BitmapData;
+	import flash.events.Event;
 	import flash.geom.Point;
 	import model.game.Table;
 	import starling.display.Image;
 	import starling.display.Sprite;
+	import starling.events.TouchEvent;
 	import starling.textures.Texture;
 	import view.util.Assets;
 
@@ -31,6 +33,8 @@ package view.game
 		private var snakePool:Array;
 		private var enemySnakePool:Array;
 		
+		//public var snakeDirection:
+		
 		public function TableManager() 
 		{
 			table = new Table();
@@ -41,6 +45,8 @@ package view.game
 			
 			cols = table.Cols;
 			rows = table.Rows;
+			
+			this.addEventListener(TouchEvent.TOUCH, tableTouchedHandler);
 		}
 		
 		public function drawGrid(widthMax:Number, heightMax:Number):void
@@ -98,10 +104,6 @@ package view.game
 				addChild(enemySnake);
 				enemySnakePool.push(enemySnake);
 			}
-			
-			drawSnakeAtPos(4, 4);
-			drawEnemySnakeAtPos(5, 4);
-			drawCoinAtPos(6, 4);
 		}
 		
 		public function drawSnakeAtPos(pointX:int, pointY:int):Boolean
@@ -178,6 +180,11 @@ package view.game
 				enemySnakePool[i].visible = false;
 				//TODO: reset snake
 			}
+		}
+		
+		private function tableTouchedHandler(e:Event):void
+		{
+			
 		}
 	}
 

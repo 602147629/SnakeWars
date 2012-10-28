@@ -15,7 +15,7 @@ package view.game
 		
 		private var snakeImage:Image;
 		private var pointWherePlaced:Point;
-		private var countText:TextField;
+		//private var countText:TextField;
 		
 		public var snakeCount:int;
 		
@@ -26,11 +26,13 @@ package view.game
 			snakeImage.y -= snakeImage.height * .5;
 			addChild(snakeImage);
 			
+			/*
 			snakeCount = 1;
 			countText = new TextField(20, 20, snakeCount.toString());
 			countText.x = snakeImage.x + snakeImage.width;
 			countText.y = snakeImage.y - snakeImage.height;
 			addChild(countText);
+			*/
 		}
 		
 		public function get PointWherePlaced():Point
