@@ -37,9 +37,6 @@ package view.game
 		{
 			//gameState.getInstance();
 			gameState = new GameState();
-			gameState.initPlayGrid();
-			gameState.insertMySnake();
-			gameState.insertEnemySnake();
 			
 			table = new Table();
 			tileArray = new Array();

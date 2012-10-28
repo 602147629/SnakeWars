@@ -20,11 +20,11 @@ package model.game
 		
 		public function GameState() 
 		{
-			
+			initPlayGrid();
 		}
 		
 		public function initPlayGrid():void
-		{
+		{	
 			playGrid = new Array();
 			for (var i:int = 0; i < cols; i++ )
 			{
@@ -32,6 +32,9 @@ package model.game
 				for (var j:int = 0; j < rows; j++)
 					playGrid[i].push(0);
 			}
+			
+			insertMySnake();
+			insertEnemySnake();
 		}
 		
 		public function resetState()
