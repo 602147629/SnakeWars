@@ -50,6 +50,7 @@ package
 		private function connectAndAuthOkHandler(e:Event):void
 		{
 			viewInst.goToLobbyScreen();
+			trace("connect");
 		}
 		
 		
