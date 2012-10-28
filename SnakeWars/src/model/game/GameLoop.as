@@ -13,6 +13,8 @@ package model.game
 		
 		var gameTimer:Timer = new Timer(120);
 		
+		var gameState:GameState = new GameState();
+		
 		private var goUp:Boolean = false;
 		private var goDown:Boolean = false;
 		private var goLeft:Boolean = false;
@@ -20,8 +22,14 @@ package model.game
 	
 		public function GameLoop() 
 		{
+			setGameState();
 			setWebControls();
 			setMainLoop();
+		}
+		
+		private function setGameState()
+		{
+			
 		}
 		
 		private function setMainLoop()
@@ -33,6 +41,8 @@ package model.game
 		private function timerHandler(e:TimerEvent):void
 		{
 			trace("timer handler");
+			gameState.moveMySnake(Movement.MY_SNAKE_MOVEMENT);
+			gameState.moveOpponentSnake(Movement.OPPONENT_SNAKE_MOVEMENT);
 		}
 		
 		private function setWebControls()
