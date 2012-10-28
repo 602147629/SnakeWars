@@ -7,7 +7,7 @@ package view
 	
 	public class View extends Sprite
 	{
-		protected var contentManipulator:ContentManipulator;
+		public var contentManipulator:ContentManipulator;
 		
 		// events
 		public static var USERNAME_SELECTED:String = "usernameSelected";		

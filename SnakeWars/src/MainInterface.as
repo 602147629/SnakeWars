@@ -44,7 +44,8 @@ package
 		
 		private function usernameSelectedHandler(e:Event)
 		{
-			
+			trace("user name selected handler!!!!");
+			trace(modelInst.DESIRED_USERNAME);
 		}
 		
 	}

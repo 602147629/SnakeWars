@@ -34,7 +34,7 @@ package model
 		
 		public function startNetworkInteraction()
 		{
-			network.init(DESIRED_USERNAME);
+			//network.init(DESIRED_USERNAME);
 		}
 		
 		
