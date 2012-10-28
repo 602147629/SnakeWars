@@ -53,6 +53,11 @@ package model
 			network.createRoom();
 		}
 		
+		public function joinRoom(roomId:int)
+		{
+			network.joinRoom(roomId);
+		}
+		
 		public function getGameRoomsList()
 		{
 			network.getGameRoomsList();

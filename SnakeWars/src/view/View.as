@@ -39,6 +39,7 @@ package view
 			contentManipulator.addEventListener(ContentManipulator.CONTENT_CHANGED, contentChangedHandler);
 			contentManipulator.lobby.addEventListener(Lobby.REQUEST_ROOM_LIST, getRoomListHandler);
 			contentManipulator.lobby.addEventListener(Lobby.CREATE_ROOM, createRoomHandler);
+			contentManipulator.lobby.addEventListener(Lobby.REQUEST_JOIN_ROOM, requestJoinRoomHandler);
 		}
 		
 		private function usernameSelectedHandler(e:Event):void
@@ -108,6 +109,12 @@ package view
 		{
 			trace("create room handler din view");
 			dispatchEvent(new Event(View.CREATE_GAME_ROOM));
+		}
+		
+		private function requestJoinRoomHandler(e:Event):void
+		{
+			this.gameId = contentManipulator.lobby.roomIdToJoin;
+			dispatchEvent(new Event(View.JOIN_ROOM_REQUEST));
 		}
 		
 	}

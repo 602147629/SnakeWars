@@ -42,6 +42,7 @@ package
 			viewInst.addEventListener(View.USERNAME_SELECTED, usernameSelectedHandler);
 			viewInst.addEventListener(View.CREATE_GAME_ROOM, createGameRoomHandler);
 			viewInst.addEventListener(View.REFRESH_GAME_ROOMS_REQUEST, refreshGameRoomsRequest);
+			viewInst.addEventListener(View.JOIN_ROOM_REQUEST, joinRoomRequestHandler);
 		}
 		
 		private function usernameSelectedHandler(e:Event)
@@ -78,6 +79,11 @@ package
 		{
 			trace("refresh din main");
 			modelInst.getGameRoomsList();
+		}
+		
+		private function joinRoomRequestHandler(e:Event):void
+		{
+			modelInst.joinRoom(viewInst.gameId);
 		}
 		
 		

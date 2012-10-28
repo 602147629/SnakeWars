@@ -40,6 +40,9 @@ package view.screens
 		public static var CREATE_ROOM:String = "createRoom";
 		public static var REQUEST_ROOM_LIST:String = "requestRoomList";
 		
+		public static var REQUEST_JOIN_ROOM:String = "requestJoinRoom";
+		public var roomIdToJoin:int = -1;
+		
 		public function Lobby() 
 		{
 			
@@ -202,7 +205,9 @@ package view.screens
 		
 		private function list_onChange(list:List):void
 		{
-			trace(list.selectedItem.id);
+			trace(list.selectedItem.id + " changed changed changed");
+			this.roomIdToJoin = list.selectedItem.id;
+			dispatchEvent(new Event(Lobby.REQUEST_JOIN_ROOM));
 		}
 	}
 
