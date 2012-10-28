@@ -1,9 +1,11 @@
 package view.game 
 {
+	import starling.display.Image;
 	import flash.geom.Point;
 	import starling.display.Button;
 	import starling.display.Sprite;
 	import starling.textures.Texture;
+	import view.util.Assets;
 
 	public class TileVisual extends Sprite
 	{
@@ -25,7 +27,7 @@ package view.game
 		{
 			tileBtn = new Button(tileTexture, "", tileTexture);
 			addChild(tileBtn);
-		}
+		}		
 		
 		public function get Center():Point
 		{

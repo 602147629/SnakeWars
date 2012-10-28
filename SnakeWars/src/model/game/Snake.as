@@ -56,8 +56,7 @@ package model.game
 				return null;
 			}
 			
-			trace(head.position);
-			return head.position;
+			return last.position;
 		}
 	}
 
