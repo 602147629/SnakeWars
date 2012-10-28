@@ -24,7 +24,6 @@ package
 		{
 			Starling.current.stage.stageWidth = 800;
 			Starling.current.stage.stageHeight = 480;
-			
 			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 		}
 		
