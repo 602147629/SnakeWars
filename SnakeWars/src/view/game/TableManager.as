@@ -3,6 +3,7 @@ package view.game
 	import flash.display.BitmapData;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import model.game.GameState;
 	import model.game.Table;
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -33,10 +34,12 @@ package view.game
 		private var snakePool:Array;
 		private var enemySnakePool:Array;
 		
-		//public var snakeDirection:
+		private var gameState:GameState;
 		
 		public function TableManager() 
 		{
+			//gameState.getInstance();
+			
 			table = new Table();
 			coinPool = new Array();
 			snakePool = new Array();
@@ -46,7 +49,6 @@ package view.game
 			cols = table.Cols;
 			rows = table.Rows;
 			
-			this.addEventListener(TouchEvent.TOUCH, tableTouchedHandler);
 		}
 		
 		public function drawGrid(widthMax:Number, heightMax:Number):void
@@ -115,8 +117,22 @@ package view.game
 					snakePool[i].visible = true;
 					snakePool[i].x = TileVisual(tileArray[pointX][pointY]).Center.x;
 					snakePool[i].y = TileVisual(tileArray[pointX][pointY]).Center.y;
+					tileArray[pointX][pointY].snakeVisual = snakePool[i];
 					return true;
 				}
+			}
+			
+			return false;
+		}
+		
+		public function removeSnakeAtPos(pointX:int, pointY:int):Boolean
+		{
+			if (tileArray[pointX][pointY].snakeVisual != null)
+			{
+				tileArray[pointX][pointY].snakeVisual.visible = false;
+				tileArray[pointX][pointY].snakeVisual = null;
+
+				return true;
 			}
 			
 			return false;
@@ -131,8 +147,21 @@ package view.game
 					enemySnakePool[i].visible = true;
 					enemySnakePool[i].x = TileVisual(tileArray[pointX][pointY]).Center.x;
 					enemySnakePool[i].y = TileVisual(tileArray[pointX][pointY]).Center.y;
+					tileArray[pointX][pointY].enemySnakeVisual = enemySnakePool[i];
 					return true;
 				}
+			}
+			
+			return false;
+		}
+		
+		public function removeEnemySnakeAtPos(pointX:int, pointY:int):Boolean
+		{
+			if (tileArray[pointX][pointY].enemySnakeVisual != null)
+			{
+				tileArray[pointX][pointY].enemySnakeVisual.visible = false;
+				tileArray[pointX][pointY].enemySnakeVisual = null;
+				return true;
 			}
 			
 			return false;
@@ -161,16 +190,7 @@ package view.game
 		}
 		
 		public function resetAllPieces():void
-		{
-			/*
-			for (var i:int = 0; i < coinNumber; i++)
-			{
-				coinPool[i].visible = false;
-				coinPool[i].x = -100;
-				coinPool[i].y = -100;
-			}
-			*/
-			
+		{	
 			for (var j:int = 0; j < snakeNumber; j++)
 			{
 				snakePool[j].visible = false;
@@ -184,10 +204,7 @@ package view.game
 			}
 		}
 		
-		private function tableTouchedHandler(e:Event):void
-		{
-			
-		}
+		
 	}
 
 }

@@ -12,6 +12,10 @@ package view.game
 		
 		private var center:Point;
 		
+		// References to snake visuals
+		public var snakeVisual:SnakeVisual;
+		public var enemySnakeVisual:SnakeVisual;
+		
 		public function TileVisual() 
 		{
 			
