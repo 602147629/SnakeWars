@@ -65,7 +65,6 @@ package view
 		}
 		
 		
-		// View requests
 		public function getRoomListHandler(e:Event):void
 		{
 			trace("GetRoomList");

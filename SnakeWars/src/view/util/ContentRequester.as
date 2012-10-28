@@ -8,6 +8,7 @@ package view.util
 		public static const REQUEST_NEW_CONTENT:String = "requestNewContent";	
 		public static const REQUEST_ROOM_LIST:String = "requestRoomList";
 		public static const CREATE_ROOM:String = "createRoom";
+		public static const USERNAME_SELECTED:String = "usernameSelected";
 		
 		public var contentId:int = -1;
 		public var contentToRequestId:int = -1;
@@ -48,7 +49,7 @@ package view.util
 		
 		protected function selectUsername():void
 		{
-			
+			dispatchEvent(new Event(USERNAME_SELECTED, true));
 		}
 	}
 
