@@ -5,11 +5,12 @@ package model.game
 	 * @author Mihai Raulea
 	 */
 	
+	import starling.events.Event;
 	import starling.display.*;
 	import starling.events.*;
 	import flash.utils.setTimeout; 
 	
-	public class GameLoop extends Sprite
+	public class GameLoop extends EventDispatcher
 	{
 		
 				
@@ -25,6 +26,8 @@ package model.game
 		private var goLeft:Boolean = false;
 		private var goRight:Boolean = false;
 	
+		public static var TICK:String = "tick";
+		
 		public function GameLoop():void {
 			if (!allowInstantiation) {
 			throw new Error("Error: Instantiation failed: Use SingletonDemo.getInstance() instead of new.");
@@ -67,6 +70,7 @@ package model.game
 			gameState.moveMySnake(Movement.MY_SNAKE_MOVEMENT);
 			gameState.moveOpponentSnake(Movement.OPPONENT_SNAKE_MOVEMENT);
 			setTimeout(timerHandler, 100);
+			dispatchEvent(new Event(GameLoop.TICK));
 		}
 		
 		private function setWebControls()
@@ -76,11 +80,11 @@ package model.game
 		
 		private function keyDownHandler(e:KeyboardEvent):void
 		{
-			trace("key down!!");
-			trace(e.keyCode + " key code");
+			//trace("key down!!");
+			//trace(e.keyCode + " key code");
 			Movement.MY_SNAKE_MOVEMENT = convertKeyCodeToMovementConstants(e.keyCode);
-			trace(Movement.MY_SNAKE_MOVEMENT);
-			trace("");
+			//trace(Movement.MY_SNAKE_MOVEMENT);
+			//trace("");
 		}
 		
 		private function convertKeyCodeToMovementConstants(keyChar:int):String

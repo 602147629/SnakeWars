@@ -1,7 +1,6 @@
 ﻿package model.network 
 {
 
-	import flash.display.MovieClip;
 	import com.smartfoxserver.v2.SmartFox;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.*;
@@ -11,6 +10,7 @@
 	import com.smartfoxserver.v2.entities.variables.*;
 	import com.smartfoxserver.v2.entities.invitation.*;
 	import com.smartfoxserver.v2.requests.game.*;
+	import model.game.GameLoop;
 	import starling.events.EventDispatcher;
 	
 	import com.smartfoxserver.v2.core.SFSBuddyEvent;
@@ -20,7 +20,7 @@
 	import starling.events.Event;
 	
 	import com.smartfoxserver.v2.exceptions.SFSError;
-	import model.game.ISyncObject;
+	import model.game.*;
 
 	public class Network extends EventDispatcher
 	{
@@ -82,6 +82,10 @@
 		
 		public static var OTHER_USER_MOVED:String = "otherUserMoved";
 		public var enemyMovementDirection:String = "";
+		
+		//UGLY!!
+		
+		var gameLoop:GameLoop = GameLoop.getInstance();
 				
 		public function Network()
 		{
@@ -297,10 +301,21 @@
 		
 		private function opponentMoved( opponentMove:String )
 		{
-			dispatchEvent(new Event(Network.OTHER_USER_MOVED));
+			Movement.OPPONENT_SNAKE_MOVEMENT = opponentMove;
+			//dispatchEvent(new Event(Network.OTHER_USER_MOVED));
 		}
-		/*	
 		
+		public function startInterpolatingMove()
+		{
+			gameLoop.addEventListener(GameLoop.TICK, gameTick);
+		}
+		
+		private function gameTick(e:Event)
+		{
+			sendMovementUpdate( Movement.MY_SNAKE_MOVEMENT );
+		}
+		
+		/*	
 		
 		private function evaluateRoom(room:Room)
 		{

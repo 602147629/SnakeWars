@@ -103,6 +103,7 @@ package
 			viewInst.contentManipulator.game.startGame();
 			gameLoop = GameLoop.getInstance();
 			gameLoop.setStageRef(Starling.current.stage);
+			modelInst.network.startInterpolatingMove();
 		}
 		
 		
