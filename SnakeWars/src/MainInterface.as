@@ -38,14 +38,23 @@ package
 			// Initiate view
 			viewInst = new View();
 			viewInst.init();
-			addChild(viewInst);
+
 			viewInst.addEventListener(View.USERNAME_SELECTED, usernameSelectedHandler);
+			viewInst.addEventListener(View.REFRESH_GAME_ROOMS_REQUEST, refreshGameRoomsHandler);
+			
+			addChild(viewInst);
+
 		}
 		
-		private function usernameSelectedHandler(e:Event)
+		private function usernameSelectedHandler(e:Event):void
 		{
 			trace("user name selected handler!!!!");
 			trace(modelInst.DESIRED_USERNAME);
+		}
+		
+		private function refreshGameRoomsHandler(e:Event):void
+		{
+			trace("REFRESH REQUEST");
 		}
 		
 	}

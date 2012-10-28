@@ -28,6 +28,7 @@ package view.screens
 		private var createRoomBtn:Button;
 		private var refreshBtn:Button;
 		private var roomList:List;
+		private var roomListCollection:ListCollection;
 		private var pageIndicator:PageIndicator;
 		
 		// Room list textures
@@ -103,7 +104,7 @@ package view.screens
 		
 		private function populateRooms():void
 		{
-			var collection:ListCollection = getRoomListCollection();
+			var collection:ListCollection = this.roomListCollection;
 			
 			const listLayout:TiledRowsLayout = new TiledRowsLayout();
 			listLayout.paging = TiledRowsLayout.PAGING_HORIZONTAL;
@@ -149,7 +150,7 @@ package view.screens
 		private function onRefreshHandler(e:Event):void
 		{
 			refreshRoomList();
-			roomList.dataProvider = getRoomListCollection();
+			roomList.dataProvider = this.roomListCollection;
 			roomList.invalidate();
 		}
 		
@@ -166,22 +167,14 @@ package view.screens
 			return renderer;
 		}
 		
-		private function getRoomListCollection():ListCollection
+		public function get RoomListCollection():ListCollection
 		{
-			var roomsOnServer:ListCollection = new ListCollection(
-			[
-				{ label: "sabin", roomId:1 },
-				{ label: "mihai", roomId:2 },
-				{ label: "mihai", roomId:3 },
-				{ label: "mihai", roomId:4 },
-				{ label: "mihai", roomId:5 },
-				{ label: "mihai", roomId:6 },
-				{ label: "mihai", roomId:7 },
-				{ label: "mihai", roomId:8 },
-				{ label: "mihai", roomId:9 }
-			]);
-			
-			return roomsOnServer;
+			return this.roomListCollection;
+		}
+		
+		public function set RoomListCollection(value:ListCollection):void
+		{
+			this.roomListCollection = new ListCollection();
 		}
 		
 		private function list_onScroll(list:List):void

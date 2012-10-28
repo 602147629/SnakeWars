@@ -86,9 +86,6 @@ package view.screens
 		{
 			// Select Username
 			selectUsername();
-			
-			// Request new content
-			//this.requestContent(1, userName);
 		}
 		
 	}

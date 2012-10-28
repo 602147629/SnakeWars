@@ -1,5 +1,6 @@
 package view.util 
 {
+	import feathers.data.ListCollection;
 	import starling.display.Sprite;
 	import view.screens.*;
 	import starling.events.Event;
@@ -74,6 +75,18 @@ package view.util
 				contentPointer.init(ContentRequester(e.target).dataObject);
 				
 			dispatchEvent(new Event(CONTENT_CHANGED));
+		}
+		
+		public function addGameRooms(gameRoomsArray:Array):void
+		{
+			var listCollection:ListCollection = new ListCollection();
+			
+			for each(var obj:Object in gameRoomsArray)
+			{
+				listCollection.addItemAt(obj, 0);
+			}
+			
+			Lobby(contentArray[1]).RoomListCollection = listCollection;
 		}
 	}
 

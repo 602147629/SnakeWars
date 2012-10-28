@@ -14,7 +14,8 @@ package view
 		public static var USERNAME_SELECTED:String = "usernameSelected";		
 		public var desiredUsername:String;
 		
-		public static var REFRESH_GAME_ROOMS_REQUEST:String = "refreshGameRooms";
+		//public static var REFRESH_GAME_ROOMS_REQUEST:String = "refreshGameRooms";
+		public static var REFRESH_GAME_ROOMS_REQUEST:String = ContentRequester.REQUEST_ROOM_LIST;
 		
 		public static var JOIN_ROOM_REQUEST:String = "joinRoomRequest";
 		public var gameId:int = 0;
@@ -52,9 +53,9 @@ package view
 		}
 		
 		// gameRoomsArray - id-uri
-		public function addGameRooms(gameRoomsArray:Array)
+		public function addGameRooms(gameRoomsArray:Array):void
 		{
-			
+			contentManipulator.addGameRooms(gameRoomsArray);
 		}
 		
 		public function moveToGame()
@@ -110,8 +111,6 @@ package view
 		{
 			trace("Create room");
 		}
-		
-		
 		
 	}
 
