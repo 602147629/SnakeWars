@@ -11,7 +11,7 @@ package view.game
 	public class TableManager extends Sprite
 	{
 		private const coinNumber:int = 10;
-		private const snakeNumber:int = 10;
+		private const snakeNumber:int = 5;
 		
 		private var cols:int;
 		private var rows:int;
@@ -27,13 +27,16 @@ package view.game
 		private var coinPool:Array;
 		
 		private var snakeData:Texture;
+		private var enemySnakeData:Texture;
 		private var snakePool:Array;
+		private var enemySnakePool:Array;
 		
 		public function TableManager() 
 		{
 			table = new Table();
 			coinPool = new Array();
 			snakePool = new Array();
+			enemySnakePool = new Array();
 			tileArray = new Array();
 			
 			cols = table.Cols;
@@ -47,7 +50,8 @@ package view.game
 			
 			tileData = Texture.fromBitmapData(Assets.getTileBitmap(tileWidth, tileHeight, 0xCCCCCC));
 			coinData = Texture.fromBitmapData(Assets.getCircleBitmap(tileWidth / 4, 0xe2ad5c));
-			snakeData = Texture.fromBitmapData(Assets.getRectangleBitmap(tileWidth / 8, tileHeight / 8, 0xFF5C5C));
+			snakeData = Texture.fromBitmapData(Assets.getCircleBitmap(tileWidth / 8, 0xFF5C5C));
+			enemySnakeData = Texture.fromBitmapData(Assets.getCircleBitmap(tileWidth / 8, 0x70C741));
 			
 			for (var i:int = 0; i < cols; i++)
 			{
@@ -86,6 +90,14 @@ package view.game
 				snakePool.push(snake);
 			}
 			
+			for (var k:int = 0; k < snakeNumber; k++)
+			{
+				var enemySnake:SnakeVisual = new SnakeVisual(enemySnakeData);
+				enemySnake.visible = false;
+				
+				addChild(enemySnake);
+				enemySnakePool.push(enemySnake);
+			}
 		}
 		
 		public function drawSnakeAtPos(pointX:int, pointY:int):Boolean
@@ -97,15 +109,27 @@ package view.game
 					snakePool[i].visible = true;
 					snakePool[i].x = TileVisual(tileArray[pointX][pointY]).Center.x;
 					snakePool[i].y = TileVisual(tileArray[pointX][pointY]).Center.y;
+					return true;
 				}
 			}
 			
 			return false;
 		}
 		
-		public function drawEnemySnakeAtPos(pointX:int, pointY:int):void
+		public function drawEnemySnakeAtPos(pointX:int, pointY:int):Boolean
 		{
+			for (var i:int = 0; i < enemySnakePool.length; i++)
+			{
+				if (enemySnakePool[i].visible == false)
+				{
+					enemySnakePool[i].visible = true;
+					enemySnakePool[i].x = TileVisual(tileArray[pointX][pointY]).Center.x;
+					enemySnakePool[i].y = TileVisual(tileArray[pointX][pointY]).Center.y;
+					return true;
+				}
+			}
 			
+			return false;
 		}
 		
 		public function drawCoinAtPos(pointX:int, pointY:int):Boolean
