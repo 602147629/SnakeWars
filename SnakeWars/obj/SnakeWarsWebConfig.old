@@ -20,16 +20,16 @@
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>C:\project\SnakeWars\SnakeWars\src</path-element>
+      <path-element>C:\Hackathon\Proiect\SnakeWars\src</path-element>
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>C:\project\SnakeWars\SnakeWars\lib\SFS2X_API_AS3.swc</path-element>
-      <path-element>C:\project\SnakeWars\SnakeWars\lib\as3-signals-v0.8.swc</path-element>
+      <path-element>C:\Hackathon\Proiect\SnakeWars\lib\SFS2X_API_AS3.swc</path-element>
+      <path-element>C:\Hackathon\Proiect\SnakeWars\lib\as3-signals-v0.8.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>C:\project\SnakeWars\SnakeWars\src\MainWeb.as</path-element>
+    <path-element>C:\Hackathon\Proiect\SnakeWars\src\MainWeb.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>

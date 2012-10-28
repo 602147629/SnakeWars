@@ -1,9 +1,11 @@
 package view.game 
 {
+	import starling.display.Image;
 	import flash.geom.Point;
 	import starling.display.Button;
 	import starling.display.Sprite;
 	import starling.textures.Texture;
+	import view.util.Assets;
 
 	public class TileVisual extends Sprite
 	{
@@ -11,6 +13,10 @@ package view.game
 		private var tileTexture:Texture;
 		
 		private var center:Point;
+		
+		// References to snake visuals
+		public var snakeVisual:SnakeVisual;
+		public var enemySnakeVisual:SnakeVisual;
 		
 		public function TileVisual() 
 		{
@@ -21,7 +27,7 @@ package view.game
 		{
 			tileBtn = new Button(tileTexture, "", tileTexture);
 			addChild(tileBtn);
-		}
+		}		
 		
 		public function get Center():Point
 		{

@@ -71,7 +71,7 @@ package view.screens
 			tableManager.x = (currentScreenWidth - tableManager.width) * .5;
 			tableManager.y = (currentScreenHeight - tableManager.height) * .5;
 			
-			tableManager.generatePools();
+			//tableManager.generatePools();
 			
 			addChild(errorTextField);
 			

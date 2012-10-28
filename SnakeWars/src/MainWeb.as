@@ -30,8 +30,8 @@ package
 		private function loaderInfo_completeHandler(event:Event):void
 		{
 			// Add hiResStats to stage for debugging
-			this.resStats = new Stats();
-			this.addChild(resStats);
+			//this.resStats = new Stats();
+			//this.addChild(resStats);
 			
 			// Init starling variables for web
 			this.starling = new Starling(MainInterface, this.stage);
