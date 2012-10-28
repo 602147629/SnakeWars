@@ -71,7 +71,13 @@ package view.screens
 			
 			isInit = true;
 		}
-				
+		
+		override public function showErrorMessage(errorMessage:String):void
+		{
+			this.errorTextField.text = errorMessage;
+			this.errorTextField.visible = true;
+		}
+		
 		protected function selectUsername():void
 		{
 			dispatchEvent(new Event(USERNAME_SELECTED, true));

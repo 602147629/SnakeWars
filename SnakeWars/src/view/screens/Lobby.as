@@ -64,14 +64,11 @@ package view.screens
 			addChild(connTextField);
 			*/
 			
-			/*
 			errorTextField = new TextField(300, 60, "Error: ");
 			errorTextField.color = 0xFF0000;
 			errorTextField.x = (currentStageWidth - errorTextField.width) * .5;
-			errorTextField.y = connTextField.y + connTextField.height + separatorY;
+			errorTextField.y = (currentStageHeight - errorTextField.height) * .5;
 			errorTextField.visible = false;
-			addChild(errorTextField);
-			*/
 			
 			createRoomBtn = new Button(btnTexture, "Create Room");
 			createRoomBtn.x = (currentStageWidth - createRoomBtn.width) * .1;
@@ -104,6 +101,8 @@ package view.screens
 			pageIndicator.maximum = Math.ceil(roomList.maxHorizontalScrollPosition / roomList.width) +1;
 			pageIndicator.validate();
 			pageIndicator.x = (currentStageWidth - pageIndicator.width) * .5;
+			
+			addChild(errorTextField);
 			
 			isInit = true;
 		}
@@ -196,6 +195,12 @@ package view.screens
 			this.roomListCollection = value;
 			this.roomList.invalidate();
 			this.pageIndicator.invalidate();
+		}
+		
+		override public function showErrorMessage(errorMessage:String):void
+		{
+			this.errorTextField.text = errorMessage;
+			this.errorTextField.visible = true;
 		}
 		
 		private function list_onScroll(list:List):void

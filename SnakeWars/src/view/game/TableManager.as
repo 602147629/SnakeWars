@@ -99,9 +99,9 @@ package view.game
 				enemySnakePool.push(enemySnake);
 			}
 			
-			drawSnakeAtPos(3, 3);
-			drawEnemySnakeAtPos(5, 5);
-			drawCoinAtPos(4, 4);
+			drawSnakeAtPos(4, 4);
+			drawEnemySnakeAtPos(5, 4);
+			drawCoinAtPos(6, 4);
 		}
 		
 		public function drawSnakeAtPos(pointX:int, pointY:int):Boolean
@@ -158,6 +158,27 @@ package view.game
 			
 		}
 		
+		public function resetAllPieces():void
+		{
+			for (var i:int = 0; i < coinNumber; i++)
+			{
+				coinPool[i].visible = false;
+				coinPool[i].x = -100;
+				coinPool[i].y = -100;
+			}
+			
+			for (var j:int = 0; j < snakeNumber; j++)
+			{
+				snakePool[i].visible = false;
+				//TODO: reset snake
+			}
+			
+			for (var k:int = 0; k < snakeNumber; k++)
+			{
+				enemySnakePool[i].visible = false;
+				//TODO: reset snake
+			}
+		}
 	}
 
 }

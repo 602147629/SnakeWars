@@ -104,6 +104,11 @@ package view.util
 			
 			Lobby(contentArray[1]).RoomListCollection = listCollection;
 		}
+		
+		public function showErrorMessage(errorMessage:String)
+		{
+			contentPointer.showErrorMessage(errorMessage);
+		}
 	}
 
 }

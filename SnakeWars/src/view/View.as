@@ -39,12 +39,21 @@ package view
 			contentManipulator.addEventListener(ContentManipulator.CONTENT_CHANGED, contentChangedHandler);
 			contentManipulator.lobby.addEventListener(Lobby.REQUEST_ROOM_LIST, getRoomListHandler);
 			contentManipulator.lobby.addEventListener(Lobby.CREATE_ROOM, createRoomHandler);
+
 			contentManipulator.lobby.addEventListener(Lobby.REQUEST_JOIN_ROOM, requestJoinRoomHandler);
+
+			contentManipulator.game.addEventListener(Game.USER_IS_READY, userIsReadyHandler);
+
 		}
 		
 		private function usernameSelectedHandler(e:Event):void
 		{
 			desiredUsername = FirstScreen(e.target).UserName;
+		}
+		
+		private function userIsReadyHandler(e:Event):void
+		{
+			trace("User ready");
 		}
 		
 		// start requests
@@ -61,6 +70,7 @@ package view
 		}
 		
 		// end requests
+		
 		
 		private function contentChangedHandler(e:Event):void
 		{
@@ -90,7 +100,7 @@ package view
 		
 		public function showError(errorMessage:String)
 		{
-			
+			contentManipulator.showErrorMessage(errorMessage);
 		}
 		
 		public function goToGameScreen()
