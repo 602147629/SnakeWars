@@ -98,6 +98,10 @@ package view.game
 				addChild(enemySnake);
 				enemySnakePool.push(enemySnake);
 			}
+			
+			drawSnakeAtPos(3, 3);
+			drawEnemySnakeAtPos(5, 5);
+			drawCoinAtPos(4, 4);
 		}
 		
 		public function drawSnakeAtPos(pointX:int, pointY:int):Boolean
