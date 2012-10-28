@@ -54,7 +54,7 @@ package view.screens
 			defeatBtn.x = (currentScreenWidth - defeatBtn.width) * .5;
 			defeatBtn.y = (currentScreenHeight - defeatBtn.height) * .5;
 			defeatBtn.addEventListener(Event.TRIGGERED, defeatBtnTriggered);
-			victoryBtn.visible = false;
+			defeatBtn.visible = false;
 			addChild(defeatBtn);
 			
 			errorTextField = new TextField(300, 60, "Error: ");

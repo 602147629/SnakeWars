@@ -162,22 +162,24 @@ package view.game
 		
 		public function resetAllPieces():void
 		{
+			/*
 			for (var i:int = 0; i < coinNumber; i++)
 			{
 				coinPool[i].visible = false;
 				coinPool[i].x = -100;
 				coinPool[i].y = -100;
 			}
+			*/
 			
 			for (var j:int = 0; j < snakeNumber; j++)
 			{
-				snakePool[i].visible = false;
+				snakePool[j].visible = false;
 				//TODO: reset snake
 			}
 			
 			for (var k:int = 0; k < snakeNumber; k++)
 			{
-				enemySnakePool[i].visible = false;
+				enemySnakePool[k].visible = false;
 				//TODO: reset snake
 			}
 		}
