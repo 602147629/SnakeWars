@@ -11,14 +11,13 @@
 	import com.smartfoxserver.v2.entities.variables.*;
 	import com.smartfoxserver.v2.entities.invitation.*;
 	import com.smartfoxserver.v2.requests.game.*;
-	import flash.events.EventDispatcher;
+	import starling.events.EventDispatcher;
 	
 	import com.smartfoxserver.v2.core.SFSBuddyEvent;
 	import com.smartfoxserver.v2.requests.buddylist.*;
 	
-	import flash.events.MouseEvent;
 	import com.smartfoxserver.v2.entities.managers.IRoomManager;
-	import flash.events.Event;
+	import starling.events.Event;
 	
 	import com.smartfoxserver.v2.exceptions.SFSError;
 	
@@ -91,31 +90,30 @@
 			
 			sfs = new SmartFox(false);// --- debug true
 			sfs.connect("54.247.26.55",9933);
-			// Turn on the debug feature
-			// Add SFS2X event listeners
 			sfs.addEventListener(SFSEvent.CONNECTION, onConnection);
 			sfs.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
 			
 			sfs.addEventListener(SFSEvent.LOGIN, onLogin);
 			sfs.addEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
 			
-			sfs.addEventListener(SFSEvent.ROOM_FIND_RESULT, onRoomFindResult);
+			//sfs.addEventListener(SFSEvent.ROOM_FIND_RESULT, onRoomFindResult);
 			//sfs.addEventListener(SFSEvent.USER_FIND_RESULT, onUserFindResult);
 						
-			sfs.addEventListener(SFSEvent.ROOM_ADD, roomAddHandler);
-			sfs.addEventListener(SFSEvent.ROOM_REMOVE, roomRemoveHandler);
+			//sfs.addEventListener(SFSEvent.ROOM_ADD, roomAddHandler);
+			//sfs.addEventListener(SFSEvent.ROOM_REMOVE, roomRemoveHandler);
 			
-			sfs.addEventListener(SFSEvent.USER_ENTER_ROOM, userEnterRoomHandler);
-			sfs.addEventListener(SFSEvent.USER_EXIT_ROOM, userExitRoomHandler);		
+			//sfs.addEventListener(SFSEvent.USER_ENTER_ROOM, userEnterRoomHandler);
+			//sfs.addEventListener(SFSEvent.USER_EXIT_ROOM, userExitRoomHandler);		
 			
-			sfs.addEventListener(SFSEvent.ROOM_JOIN, onJoin);
-			sfs.addEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinError);
+			//sfs.addEventListener(SFSEvent.ROOM_JOIN, onJoin);
+			//sfs.addEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinError);
 						
-			sfs.addEventListener(SFSEvent.PUBLIC_MESSAGE, onPublicMessage);
-			sfs.addEventListener(SFSEvent.PRIVATE_MESSAGE, onPrivateMessage);
+			//sfs.addEventListener(SFSEvent.PUBLIC_MESSAGE, onPublicMessage);
+			//sfs.addEventListener(SFSEvent.PRIVATE_MESSAGE, onPrivateMessage);
+			
 			//doar de test
-			sfs.addEventListener(SFSEvent.ROOM_ADD, onRoomCreated);
-         	sfs.addEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
+			//sfs.addEventListener(SFSEvent.ROOM_ADD, onRoomCreated);
+         	//sfs.addEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
 		}
 		
 		private function onConnection(e:SFSEvent)
@@ -146,7 +144,6 @@
 		
 		private function onLogin(e:SFSEvent) 
 		{
-			getGameRoomsList();
 			dispatchEvent(new Event(Network.LOGIN_SUCCESFUL));
 		}
 		
@@ -157,6 +154,7 @@
 			dispatchEvent(new Event(Network.LOGIN_ERROR));
 		}
 		
+		/*
 		private function onJoin(evt:SFSEvent):void
 		{
 			var roomJoined:Room = evt.params.room;
@@ -261,16 +259,6 @@
 		
 		private function roomAddHandler(e:SFSEvent) {
 			var room:SFSRoom = e.params.room;
-			/*
-			newRoom.password = room.isPasswordProtected;
-			newRoom.environment = room.getVariable("environment").getIntValue();
-			newRoom.coins = room.getVariable("coins").getIntValue();
-			newRoom.roomId = room.id;
-			for(var i:int=0;i<room.playerList.length;i++) {
-				var player:User = room.playerList[i];
-				newRoom.playerArray[i] = player.name;
-			}
-			*/
 			trace("added room!!!");
 			dispatchEvent(new Event(Network.ROOM_ADDED));
 		}
@@ -300,12 +288,6 @@
      	{
          	trace("Room creation failed: " + evt.params.errorMessage);
      	}
-		
-		/*
-		public function get lobbyMode() {
-			return GameMode.CURRENT_GAME_MODE;
-		}
-		*/
 				
 		public function sendPrivateMessage(toUser:String,mesaj:String) {
 			var user:User = sfs.userManager.getUserByName(toUser);
@@ -315,7 +297,7 @@
 		public function sendPublicMessage(mesaj:String) {
 			sfs.send(new PublicMessageRequest(mesaj));
 		}
-		
+		*/
 	
 }
 

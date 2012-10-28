@@ -32,9 +32,6 @@ package
 			// Initiate model
 			modelInst = Model.getInstance();
 			
-			//test
-			modelInst.startNetworkInteraction();
-			//
 			// Initiate view
 			viewInst = new View();
 			viewInst.init();
@@ -45,8 +42,16 @@ package
 		private function usernameSelectedHandler(e:Event)
 		{
 			trace("user name selected handler!!!!");
-			trace(modelInst.DESIRED_USERNAME);
+			modelInst.addEventListener(Model.CONNECT_AND_AUTH_OK, connectAndAuthOkHandler);
+			modelInst.startNetworkInteraction(viewInst.desiredUsername);
 		}
+		
+		
+		private function connectAndAuthOkHandler(e:Event):void
+		{
+			viewInst.goToLobbyScreen();
+		}
+		
 		
 	}
 
