@@ -72,6 +72,9 @@
 		private var sfs:SmartFox;
 		private var username:String = "sabin";
 		
+		public static var GAME_LIST_RECEIVED:String = "gameListReceived";
+		public var gameRooms:Array = new Array();
+		
 		//dummy!!!1
 		private var noOfRequests:int = 0;
 		
@@ -143,19 +146,12 @@
 		
 		private function onLogin(e:SFSEvent) 
 		{
-			//trace("logged in --------------------------");
-			//trace(sfs.userManager.getUserList().toString());
-			
-			var roomNameToJoin:String = "SnakeLimbo";//gameConventions.getDefaultLobbyRoomForGame(lobbyMode);
-			var roomGroupToSubscribe:String = ""; //gameConventions.getDefaultGroupNameForGame(lobbyMode);
-			
-			//sfs.send(new SubscribeRoomGroupRequest(roomGroupToSubscribe));
-			sfs.send( new JoinRoomRequest("SnakeLimbo") );
-			
+			getGameRoomsList();
 			dispatchEvent(new Event(Network.LOGIN_SUCCESFUL));
 		}
 		
-		private function onLoginError(e:SFSEvent) {
+		private function onLoginError(e:SFSEvent) 
+		{
 			//trace("logged in error!");
 			//trace(e.params.errorMessage+" logged in error reason");
 			dispatchEvent(new Event(Network.LOGIN_ERROR));
@@ -165,13 +161,15 @@
 		{
 			var roomJoined:Room = evt.params.room;
 			evaluateRoom(roomJoined);
+			//trace("joined room!");
 		}
 				
 		private function userEnterRoomHandler(evt:SFSEvent) 
 		{
 			var room:Room = evt.params.room;
             var user:User = evt.params.user;
-			evaluateRoom(room);
+			//evaluateRoom(room);
+			
 			
 			userNameJoinedRoom = user.name;
 		    roomIdJoinedByUser = room.id;		
@@ -183,16 +181,18 @@
 		
 		private function evaluateRoom(room:Room)
 		{
-			
-				getGameRoomsList();
+			trace("evaluate room :" + room.isGame);
 			if (room.isGame)
 			{
 				//trace("room joinede is game");
-				
+				trace("entered game room");
 				dispatchEvent(new Event(Network.GAME_ROOM_ENTERED));
 			}
 			else
 			{
+				trace("before creating room!!!");
+				createRoom();
+				//getGameRoomsList();
 				//trace("room joined is LOBBY");
 				//test
 				//getGameRoomsList();
@@ -202,15 +202,26 @@
 		public function getGameRoomsList()
 		{
 				trace("get game rooms list! noOfRequests:" + noOfRequests);
-			    var exp:MatchExpression = new MatchExpression(RoomProperties.IS_GAME, BoolMatch.EQUALS, true);
+			    var exp:MatchExpression = new MatchExpression(RoomProperties.NAME, StringMatch.NOT_EQUALS, "!");//BoolMatch.EQUALS, true);
                 // Find the Rooms
 				sfs.send(new FindRoomsRequest(exp));
 		}
 		
 		private function onRoomFindResult(e:SFSEvent)
 		{
-			trace("rooms found!!");
-			trace(e.params.rooms+" rooms found!");			
+			trace("rooms found!!");	
+			gameRooms.splice(0, gameRooms.length);
+			for (var i:int = 0; i < e.params.rooms.length; i++)
+			{
+				var room:Room = (e.params.rooms[i]);
+				trace(room.isGame + " is room game?");
+				if (room.isGame) gameRooms.push(room.id);
+			}
+			if (gameRooms.length > 0)
+			{
+				trace("dispatched game room received");
+				dispatchEvent(new Event(Network.GAME_LIST_RECEIVED));				
+			}
 		}
 		
 		public function createRoom()
@@ -260,6 +271,7 @@
 				newRoom.playerArray[i] = player.name;
 			}
 			*/
+			trace("added room!!!");
 			dispatchEvent(new Event(Network.ROOM_ADDED));
 		}
 		
@@ -282,7 +294,6 @@
 		private function onRoomCreated(evt:SFSEvent):void
      	{
          	trace("Room created: " + evt.params.room);
-			getGameRoomsList();
      	}
      
      	private function onRoomCreationError(evt:SFSEvent):void
