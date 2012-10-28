@@ -68,8 +68,18 @@ package model.game
 		private function timerHandler():void
 		{
 			trace(Movement.MY_SNAKE_MOVEMENT);
+			if (gameState.myPlayerNumber == 1)
+			{
 			gameState.moveMySnake(Movement.MY_SNAKE_MOVEMENT);
 			gameState.moveOpponentSnake(Movement.OPPONENT_SNAKE_MOVEMENT);
+			}
+			else
+			if (gameState.myPlayerNumber == 2)
+			{
+			gameState.moveOpponentSnake(Movement.MY_SNAKE_MOVEMENT);
+			gameState.moveMySnake(Movement.OPPONENT_SNAKE_MOVEMENT);
+			}
+			
 			setTimeout(timerHandler, 125);
 			dispatchEvent(new Event(GameLoop.TICK));
 		}

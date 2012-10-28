@@ -18,7 +18,7 @@ package model.game
 		public var mySnake:Snake;
 		public var enemySnake:Snake;
 		
-		public var myPlayerNumber:int = 1;
+		public var myPlayerNumber:int = 2;
 		
 		public function GameState() 
 		{
@@ -76,7 +76,7 @@ package model.game
 		}
 		
 		public function moveMySnake(direction:String)
-		{
+		{				
 			var lastPost:Point = mySnake.dequeue();
 			playGrid[lastPost.x][lastPost.y] = 0;
 			
@@ -101,6 +101,7 @@ package model.game
 					playGrid[mySnake.peak().x][mySnake.peak().y] = 1;					
 					break;
 			}
+			
 		}
 		
 		public function moveOpponentSnake(direction:String)
@@ -129,6 +130,7 @@ package model.game
 					playGrid[enemySnake.peak().x][enemySnake.peak().y] = 2;					
 					break;
 			}
+			
 		}
 		
 	}
