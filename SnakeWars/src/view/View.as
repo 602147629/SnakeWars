@@ -22,6 +22,7 @@ package view
 		
 		public static var CREATE_GAME_ROOM:String = "createGameRoom";
 		// end events
+		public static var READY:String = "ready";
 		
 		public function View() 
 		{
@@ -54,6 +55,7 @@ package view
 		private function userIsReadyHandler(e:Event):void
 		{
 			trace("User ready");
+			dispatchEvent(new Event(View.READY));
 		}
 		
 		// start requests

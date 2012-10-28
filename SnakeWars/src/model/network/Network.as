@@ -78,6 +78,8 @@
 		public static var GAME_LIST_RECEIVED:String = "gameListReceived";
 		public var gameRooms:Array = new Array();
 		
+		public static var OPPONENT_READY:String  = "opponentReady";
+		
 		public static var OTHER_USER_MOVED:String = "otherUserMoved";
 		public var enemyMovementDirection:String = "";
 				
@@ -234,7 +236,8 @@
 			dispatchEvent(new Event(Network.USER_JOINED_ROOM));
 		}
 		
-		private function userExitRoomHandler(evt:SFSEvent) {
+		private function userExitRoomHandler(evt:SFSEvent) 
+		{
 			var room:Room = evt.params.room;
             var user:User = evt.params.user;
 			
@@ -289,7 +292,7 @@
 		
 		private function opponentReady()
 		{
-			
+			dispatchEvent(new Event(Network.OPPONENT_READY));
 		}
 		
 		private function opponentMoved( opponentMove:String )

@@ -34,6 +34,7 @@ package
 			modelInst.addEventListener(Model.CONNECT_AND_AUTH_OK, connectAndAuthOkHandler);
 			modelInst.addEventListener(Model.GAME_LIST_RECEIVED, gameListReceivedHandler);
 			modelInst.addEventListener(Model.GAME_ROOM_ENTERED, gameRoomEnteredHandler);
+			modelInst.addEventListener(Model.GAME_STARTED, gameStarted)
 			
 			// Initiate view
 			viewInst = new View();
@@ -43,6 +44,7 @@ package
 			viewInst.addEventListener(View.CREATE_GAME_ROOM, createGameRoomHandler);
 			viewInst.addEventListener(View.REFRESH_GAME_ROOMS_REQUEST, refreshGameRoomsRequest);
 			viewInst.addEventListener(View.JOIN_ROOM_REQUEST, joinRoomRequestHandler);
+			viewInst.addEventListener(View.READY, readyHandler);
 		}
 		
 		private function usernameSelectedHandler(e:Event)
@@ -84,6 +86,19 @@ package
 		private function joinRoomRequestHandler(e:Event):void
 		{
 			modelInst.joinRoom(viewInst.gameId);
+		}
+		
+		private function readyHandler(e:Event):void
+		{
+			modelInst.sendReadyUpdate();
+			//viewInst.showError("Waiting for your opponent to be ready");
+		}
+		
+		private function gameStarted(e:Event)
+		{
+			trace("GAME STARTED!!!!");
+			viewInst.showError("");
+			viewInst.contentManipulator.game.startGame();
 		}
 		
 		

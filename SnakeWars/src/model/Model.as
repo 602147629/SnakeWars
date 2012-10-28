@@ -69,6 +69,8 @@ package model
 		{
 			network.sendReadyUpdate();
 			gameState.iAmReady = true;
+			
+			if ( checkGameStart() ) startGame();
 		}
 		
 		private function checkGameStart():Boolean
@@ -81,6 +83,7 @@ package model
 			network.addEventListener(Network.LOGIN_SUCCESFUL, loginSuccesfulHandler);
 			network.addEventListener(Network.GAME_LIST_RECEIVED, gameListReceivedHandler);
 			network.addEventListener(Network.GAME_ROOM_ENTERED, gameRoomEnteredHandler);
+			network.addEventListener(Network.OPPONENT_READY, opponentReadyHandler);
 		}
 		
 		private function loginSuccesfulHandler(e:Event)
@@ -98,6 +101,17 @@ package model
 		{
 			gameState.resetState();
 			dispatchEvent(new Event(Model.GAME_ROOM_ENTERED));
+		}
+		
+		private function opponentReadyHandler(e:Event)
+		{
+			gameState.opponentReady = true;
+			if ( checkGameStart() ) startGame();
+		}
+		
+		private function startGame()
+		{
+			dispatchEvent(new Event(Model.GAME_STARTED));
 		}
 		
 		
