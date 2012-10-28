@@ -1,7 +1,7 @@
 package view.game 
 {
 	import flash.display.BitmapData;
-	import flash.events.Event;
+	import starling.events.Event;
 	import flash.geom.Point;
 	import model.game.Table;
 	import starling.display.Image;

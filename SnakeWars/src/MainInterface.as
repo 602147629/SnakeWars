@@ -1,6 +1,7 @@
 package  
 {
 
+	import model.game.GameLoop;
 	import model.Model;
 	import starling.core.Starling;
 	import starling.display.Image;
@@ -17,6 +18,8 @@ package
 		private var modelInst:Model;
 		private var viewInst:View;
 		
+		var gameLoop:GameLoop;
+		
 		public function MainInterface() 
 		{
 			Starling.current.stage.stageWidth = 800;
@@ -28,7 +31,7 @@ package
 		private function addedToStageHandler(event:Event):void
 		{
 			this.removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-			
+					
 			// Initiate model
 			modelInst = Model.getInstance();
 			modelInst.addEventListener(Model.CONNECT_AND_AUTH_OK, connectAndAuthOkHandler);
@@ -96,9 +99,10 @@ package
 		
 		private function gameStarted(e:Event)
 		{
-			trace("GAME STARTED!!!!");
 			viewInst.showError("");
 			viewInst.contentManipulator.game.startGame();
+			gameLoop = GameLoop.getInstance();
+			gameLoop.setStageRef(Starling.current.stage);
 		}
 		
 		
