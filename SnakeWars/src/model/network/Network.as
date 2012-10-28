@@ -20,7 +20,7 @@
 	import starling.events.Event;
 	
 	import com.smartfoxserver.v2.exceptions.SFSError;
-	
+	import model.game.ISyncObject;
 
 	public class Network extends EventDispatcher
 	{
@@ -59,6 +59,10 @@
 		
 		public static var ROOM_JOIN_ERROR:String="roomJoinError";
 		public var roomJoinErrorMessage:String="";
+		
+		public static var SYNC_OBJECT_RECEIVED:String = "objectReceived";
+		public static var syncObject:ISyncObject;
+		
 		
 		public static var PUBLIC_MESSAGE_RECEIVED:String="publicMessageReceived";
 		public var publicMessageObject:Object = new Object();

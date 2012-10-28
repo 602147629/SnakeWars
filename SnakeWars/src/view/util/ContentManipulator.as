@@ -49,7 +49,7 @@ package view.util
 				addChild(contentArray[i]);
 			}
 			
-			contentPointer = game;
+			contentPointer = firstScreen;
 			contentPointer.visible = true;
 			contentPointer.init(new Object());
 		}
