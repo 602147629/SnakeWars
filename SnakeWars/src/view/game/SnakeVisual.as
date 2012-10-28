@@ -45,16 +45,17 @@ package view.game
 			this.pointWherePlaced = value;
 		}
 		
+		/*
 		public function addPoints(points:int):void
 		{
 			this.snakeCount += points;
-			this.countText.text = snakeCount.toString();
+			//this.countText.text = snakeCount.toString();
 		}
 		
 		public function substractPoints(points:int):void
 		{
 			this.snakeCount -= points;
-			this.countText.text = snakeCount.toString();
+			//this.countText.text = snakeCount.toString();
 			
 			if (snakeCount <= 0)
 				killSnake();
@@ -64,6 +65,7 @@ package view.game
 		{
 			dispatchEvent(new Event(SNAKE_KILLED, false));
 		}
+		*/
 		
 	}
 
