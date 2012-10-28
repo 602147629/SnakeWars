@@ -47,12 +47,7 @@ package view
 		}
 		
 		// start requests
-		
-		public function moveToLobby()
-		{
 			
-		}
-		
 		// gameRoomsArray - id-uri
 		public function addGameRooms(gameRoomsArray:Array):void
 		{
@@ -99,7 +94,7 @@ package view
 		
 		public function goToGameScreen()
 		{
-			trace("Game");
+			contentManipulator.goToScreen(2);
 		}
 		
 		
