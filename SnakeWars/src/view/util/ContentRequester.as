@@ -37,6 +37,11 @@ package view.util
 			dispatchEvent(new Event(ContentRequester.REQUEST_NEW_CONTENT));
 		}
 		
+		public function showErrorMessage(errorMessage:String):void
+		{
+			
+		}
+		
 	}
 
 }
