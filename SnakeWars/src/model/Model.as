@@ -2,7 +2,7 @@ package model
 {
 	
 	import model.network.*;
-	import flash.events.*;
+	import starling.events.*;
 		
 	public class Model extends EventDispatcher
 	{		
@@ -10,8 +10,9 @@ package model
 		public static var instance:Model;
 		private static var allowInstantiation:Boolean = false;
 		
-		public var DESIRED_USERNAME:String = "eu";
 				
+		public static var CONNECT_AND_AUTH_OK:String = "connectAndAuthOk";
+		
 		public var network:Network = new Network();
 		
 		public function Model():void {
@@ -32,9 +33,20 @@ package model
 			return instance;
 		}		
 		
-		public function startNetworkInteraction()
+		public function startNetworkInteraction(desiredUsername:String)
 		{
-			//network.init(DESIRED_USERNAME);
+			addNetworkEventListeners();
+			network.init(desiredUsername);
+		}
+		
+		private function addNetworkEventListeners()
+		{
+			network.addEventListener(Network.LOGIN_SUCCESFUL, loginSuccesfulHandler);
+		}
+		
+		private function loginSuccesfulHandler(e:Event)
+		{
+			dispatchEvent(new Event(Model.CONNECT_AND_AUTH_OK));
 		}
 		
 		
