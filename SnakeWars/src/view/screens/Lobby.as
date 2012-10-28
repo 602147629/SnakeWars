@@ -190,6 +190,9 @@ package view.screens
 		public function set RoomListCollection(value:ListCollection):void
 		{
 			this.roomListCollection = new ListCollection();
+			this.roomListCollection = value;
+			this.roomList.invalidate();
+			this.pageIndicator.invalidate();
 		}
 		
 		private function list_onScroll(list:List):void
@@ -199,7 +202,7 @@ package view.screens
 		
 		private function list_onChange(list:List):void
 		{
-			trace(list.selectedItem.roomId);
+			trace(list.selectedItem.id);
 		}
 	}
 
