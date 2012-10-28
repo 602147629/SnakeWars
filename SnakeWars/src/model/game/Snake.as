@@ -43,9 +43,10 @@ package model.game
 				trace("Error: \n\t Objects of type Queue must contain data before being dequeued.");
 				return new Point();
 			}
-        var point:Point = head.position;
-        head = head.next;
-        return point;
+			
+			var point:Point = head.position;
+			head = head.next;
+			return point;
 		}
 		
 		public function peak():Point
