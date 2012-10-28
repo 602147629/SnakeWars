@@ -12,9 +12,9 @@ package view.util
 		
 		private var contentArray:Array;
 		
-		private var firstScreen:FirstScreen = new FirstScreen();
-		private var lobby:Lobby = new Lobby();
-		private var game:Game = new Game();
+		public var firstScreen:FirstScreen = new FirstScreen();
+		public var lobby:Lobby = new Lobby();
+		public var game:Game = new Game();
 		
 		private var oldContentPointer:ContentRequester;
 		private var contentPointer:ContentRequester;
@@ -66,6 +66,7 @@ package view.util
 		
 		private function newContentRequested(e:Event):void
 		{
+			/*
 			oldContentPointer = contentPointer;
 			oldContentPointer.visible = false;
 			contentPointer = contentArray[ContentRequester(e.target).contentToRequestId];			
@@ -75,6 +76,20 @@ package view.util
 				contentPointer.init(ContentRequester(e.target).dataObject);
 				
 			dispatchEvent(new Event(CONTENT_CHANGED));
+			*/
+			goToScreen(ContentRequester(e.target).contentToRequestId, ContentRequester(e.target).dataObject);
+		}
+		
+		public function goToScreen(screenId:int, dataObject:Object = null)
+		{
+			oldContentPointer = contentPointer;
+			oldContentPointer.visible = false;
+			contentPointer = contentArray[screenId];			
+			contentPointer.visible = true;
+			
+			contentPointer.init(dataObject);
+				
+			//dispatchEvent(new Event(CONTENT_CHANGED));
 		}
 		
 		public function addGameRooms(gameRoomsArray:Array):void
@@ -83,6 +98,7 @@ package view.util
 			
 			for each(var obj:Object in gameRoomsArray)
 			{
+				trace("list collection add object");
 				listCollection.addItemAt(obj, 0);
 			}
 			

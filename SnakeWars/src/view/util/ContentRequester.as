@@ -37,20 +37,6 @@ package view.util
 			dispatchEvent(new Event(ContentRequester.REQUEST_NEW_CONTENT));
 		}
 		
-		protected function refreshRoomList():void
-		{
-			dispatchEvent(new Event(ContentRequester.REQUEST_ROOM_LIST,true));
-		}
-		
-		protected function createRoom():void
-		{
-			dispatchEvent(new Event(ContentRequester.CREATE_ROOM, true));
-		}
-		
-		protected function selectUsername():void
-		{
-			dispatchEvent(new Event(USERNAME_SELECTED, true));
-		}
 	}
 
 }

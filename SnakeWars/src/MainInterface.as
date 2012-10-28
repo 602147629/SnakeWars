@@ -31,18 +31,21 @@ package
 			
 			// Initiate model
 			modelInst = Model.getInstance();
+			modelInst.addEventListener(Model.CONNECT_AND_AUTH_OK, connectAndAuthOkHandler);
+			modelInst.addEventListener(Model.GAME_LIST_RECEIVED, gameListReceivedHandler);
 			
 			// Initiate view
 			viewInst = new View();
 			viewInst.init();
 			addChild(viewInst);
 			viewInst.addEventListener(View.USERNAME_SELECTED, usernameSelectedHandler);
+			viewInst.addEventListener(View.CREATE_GAME_ROOM, createGameRoomHandler);
+			viewInst.addEventListener(View.REFRESH_GAME_ROOMS_REQUEST, refreshGameRoomsRequest);
 		}
 		
 		private function usernameSelectedHandler(e:Event)
 		{
 			trace("user name selected handler!!!!");
-			modelInst.addEventListener(Model.CONNECT_AND_AUTH_OK, connectAndAuthOkHandler);
 			modelInst.startNetworkInteraction(viewInst.desiredUsername);
 		}
 		
@@ -51,6 +54,24 @@ package
 		{
 			viewInst.goToLobbyScreen();
 			trace("connect");
+		}
+		
+		private function gameListReceivedHandler(e:Event):void
+		{
+			trace("game list received");
+			viewInst.addGameRooms(modelInst.gameListArray);
+		}
+		
+		private function createGameRoomHandler(e:Event):void
+		{
+			trace("main interface -  > create game room");
+			modelInst.createGameRoom();
+		}
+		
+		private function refreshGameRoomsRequest(e:Event):void
+		{
+			trace("refresh din main");
+			modelInst.getGameRoomsList();
 		}
 		
 		

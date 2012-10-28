@@ -1,6 +1,7 @@
 package model 
 {
 	
+	import starling.events.Event;
 	import model.network.*;
 	import starling.events.*;
 		
@@ -12,6 +13,8 @@ package model
 		
 				
 		public static var CONNECT_AND_AUTH_OK:String = "connectAndAuthOk";
+		public static var GAME_LIST_RECEIVED:String = "gameListReceived";
+		public var gameListArray:Array;
 		
 		public var network:Network = new Network();
 		
@@ -39,14 +42,31 @@ package model
 			network.init(desiredUsername);
 		}
 		
+		public function createGameRoom()
+		{
+			network.createRoom();
+		}
+		
+		public function getGameRoomsList()
+		{
+			network.getGameRoomsList();
+		}
+		
 		private function addNetworkEventListeners()
 		{
 			network.addEventListener(Network.LOGIN_SUCCESFUL, loginSuccesfulHandler);
+			network.addEventListener(Network.GAME_LIST_RECEIVED, gameListReceivedHandler);
 		}
 		
 		private function loginSuccesfulHandler(e:Event)
 		{
 			dispatchEvent(new Event(Model.CONNECT_AND_AUTH_OK));
+		}
+		
+		private function gameListReceivedHandler(e:Event)
+		{
+			gameListArray = network.gameRooms;
+			dispatchEvent(new Event(Model.GAME_LIST_RECEIVED));
 		}
 		
 		

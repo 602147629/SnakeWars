@@ -71,6 +71,11 @@ package view.screens
 			
 			isInit = true;
 		}
+				
+		protected function selectUsername():void
+		{
+			dispatchEvent(new Event(USERNAME_SELECTED, true));
+		}
 		
 		public function get UserName():String
 		{

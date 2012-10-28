@@ -15,11 +15,12 @@ package view
 		public var desiredUsername:String;
 		
 		//public static var REFRESH_GAME_ROOMS_REQUEST:String = "refreshGameRooms";
-		public static var REFRESH_GAME_ROOMS_REQUEST:String = ContentRequester.REQUEST_ROOM_LIST;
+		public static var REFRESH_GAME_ROOMS_REQUEST:String = "refreshGameRooms";
 		
 		public static var JOIN_ROOM_REQUEST:String = "joinRoomRequest";
 		public var gameId:int = 0;
 		
+		public static var CREATE_GAME_ROOM:String = "createGameRoom";
 		// end events
 		
 		public function View() 
@@ -36,8 +37,8 @@ package view
 			contentManipulator.addEventListener(ContentRequester.USERNAME_SELECTED, usernameSelectedHandler);
 			
 			contentManipulator.addEventListener(ContentManipulator.CONTENT_CHANGED, contentChangedHandler);
-			contentManipulator.addEventListener(ContentRequester.REQUEST_ROOM_LIST, getRoomListHandler);
-			contentManipulator.addEventListener(ContentRequester.CREATE_ROOM, createRoomHandler);
+			contentManipulator.lobby.addEventListener(Lobby.REQUEST_ROOM_LIST, getRoomListHandler);
+			contentManipulator.lobby.addEventListener(Lobby.CREATE_ROOM, createRoomHandler);
 		}
 		
 		private function usernameSelectedHandler(e:Event):void
@@ -88,7 +89,7 @@ package view
 		// requests
 		public function goToLobbyScreen()
 		{
-			trace("Lobby");
+			contentManipulator.goToScreen(1);
 		}
 		
 		public function showError(errorMessage:String)
@@ -104,12 +105,14 @@ package view
 		
 		public function getRoomListHandler(e:Event):void
 		{
-			trace("GetRoomList");
+			trace("GetRoomList din view");
+			dispatchEvent(new Event(View.REFRESH_GAME_ROOMS_REQUEST));
 		}
 		
 		public function createRoomHandler(e:Event):void
 		{
-			trace("Create room");
+			trace("create room handler din view");
+			dispatchEvent(new Event(View.CREATE_GAME_ROOM));
 		}
 		
 	}

@@ -37,6 +37,9 @@ package view.screens
 		private const roomItemBackgroundTexture:Texture = Texture.fromBitmapData(Assets.getRectangleBitmap(50, 50, 0xCCCCCC));
 		private const roomItemDownTexture:Texture = Texture.fromBitmapData(Assets.getRectangleBitmap(30, 30, 0xDDDDDD));
 		
+		public static var CREATE_ROOM:String = "createRoom";
+		public static var REQUEST_ROOM_LIST:String = "requestRoomList";
+		
 		public function Lobby() 
 		{
 			
@@ -144,7 +147,8 @@ package view.screens
 		
 		private function onCreateRoomHandler(e:Event):void
 		{
-			trace("Create room");
+			trace("create room handler!!!!");
+			dispatchEvent(new Event(Lobby.CREATE_ROOM));
 		}
 		
 		private function onRefreshHandler(e:Event):void
@@ -166,6 +170,17 @@ package view.screens
 			renderer.height = 200;
 			return renderer;
 		}
+		
+		protected function refreshRoomList():void
+		{
+			dispatchEvent(new Event(ContentRequester.REQUEST_ROOM_LIST,true));
+		}
+		
+		protected function createRoom():void
+		{
+			dispatchEvent(new Event(ContentRequester.CREATE_ROOM, true));
+		}
+		
 		
 		public function get RoomListCollection():ListCollection
 		{
