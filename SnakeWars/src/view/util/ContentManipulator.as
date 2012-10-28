@@ -64,7 +64,7 @@ package view.util
 			
 		}
 		
-		private function newContentRequested(e:Event):void
+		public function newContentRequested(e:Event):void
 		{
 			/*
 			oldContentPointer = contentPointer;
