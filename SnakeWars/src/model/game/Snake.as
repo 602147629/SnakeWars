@@ -41,7 +41,7 @@ package model.game
 			if (isEmpty()) 
 			{
 				trace("Error: \n\t Objects of type Queue must contain data before being dequeued.");
-				return null;
+				return new Point();
 			}
         var point:Point = head.position;
         head = head.next;
