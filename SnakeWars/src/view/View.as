@@ -64,6 +64,8 @@ package view
 			trace("Game");
 		}
 		
+		
+		// View requests
 		public function getRoomListHandler(e:Event):void
 		{
 			trace("GetRoomList");

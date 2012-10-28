@@ -52,9 +52,21 @@ package view.util
 		// Get a tile inside a BitmapData object
 		public static function getTileBitmap(width:Number, height:Number, color:uint, alpha:Number = 1):BitmapData
 		{
-			var bitmapData:BitmapData = new BitmapData(width, height, false);
+			const borderSize:int = 10;
 			
-			//TODO: Generate tile graphics here
+			var bitmapData:BitmapData = new BitmapData(width, height, false);
+			var tile:Shape = new Shape();
+			var tileSprite:Sprite = new Sprite();
+			
+			tile.graphics.beginFill(color, alpha);
+			tile.graphics.drawRect(0, 0, width, height / borderSize);
+			tile.graphics.drawRect(0, 0, width / borderSize, height);
+			tile.graphics.drawRect(0, height - height / borderSize, width, height / borderSize);
+			tile.graphics.drawRect(width - width / borderSize, 0, width / 10, height);
+			tile.graphics.endFill();
+			
+			tileSprite.addChild(tile);
+			bitmapData.draw(tileSprite);
 			
 			return bitmapData;
 		}

@@ -46,6 +46,10 @@ package view.util
 			dispatchEvent(new Event(ContentRequester.CREATE_ROOM, true));
 		}
 		
+		protected function selectUsername():void
+		{
+			
+		}
 	}
 
 }

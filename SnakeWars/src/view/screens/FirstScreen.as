@@ -79,8 +79,10 @@ package view.screens
 		
 		private function onPlayHandler(e:Event):void
 		{
+			// Select Username
+			
 			// Request new content
-			this.requestContent(1, userName);
+			//this.requestContent(1, userName);
 		}
 		
 	}

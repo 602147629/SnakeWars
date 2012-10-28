@@ -4,7 +4,9 @@ package view.screens
 
 	
 	public class Game extends ContentRequester
-	{
+	{	
+		private var currentScreenWidth:Number;
+		private var currentScreenHeight:Number;
 		
 		public function Game() 
 		{
@@ -13,7 +15,7 @@ package view.screens
 		
 		override public function init(initData:Object):void
 		{
-		
+			
 		}
 	}
 
