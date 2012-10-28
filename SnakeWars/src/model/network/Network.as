@@ -78,9 +78,8 @@
 		public static var GAME_LIST_RECEIVED:String = "gameListReceived";
 		public var gameRooms:Array = new Array();
 		
-		//dummy!!!1
-		private var noOfRequests:int = 0;
-		
+		public static var OTHER_USER_MOVED:String = "otherUserMoved";
+		public var enemyMovementDirection:String = "";
 				
 		public function Network()
 		{
@@ -115,7 +114,7 @@
 			
 			sfs.addEventListener(SFSEvent.USER_ENTER_ROOM, userEnterRoomHandler);
 			sfs.addEventListener(SFSEvent.USER_EXIT_ROOM, userExitRoomHandler);		
-			
+			sfs.addEventListener(SFSEvent.OBJECT_MESSAGE, onObjectMessage);
 						
 			//sfs.addEventListener(SFSEvent.PUBLIC_MESSAGE, onPublicMessage);
 			//sfs.addEventListener(SFSEvent.PRIVATE_MESSAGE, onPrivateMessage);
@@ -177,8 +176,7 @@
 				
 		public function getGameRoomsList()
 		{
-				trace("get game rooms list! noOfRequests:" + noOfRequests);
-			    var exp:MatchExpression = new MatchExpression(RoomProperties.NAME, StringMatch.NOT_EQUALS, "!");//BoolMatch.EQUALS, true);
+				var exp:MatchExpression = new MatchExpression(RoomProperties.NAME, StringMatch.NOT_EQUALS, "!");//BoolMatch.EQUALS, true);
                 // Find the Rooms
 				sfs.send(new FindRoomsRequest(exp));
 		}
@@ -242,8 +240,61 @@
 			
 			userNameLeftRoom = user.name;
 			roomIdLeftByUser = room.id;
+			trace("user exit room");
+			if (room.isGame) 
+			{
+				
+				dispatchEvent(new Event(Network.USER_LEFT_ROOM));
+			}
+		}
+		
+		// object send part
+		
+		public function onObjectMessage(evt:SFSEvent):void
+		{
+			var dataObj:ISFSObject = evt.params.message as SFSObject;
+         	var sender:User = evt.params.sender;
 			
-			dispatchEvent(new Event(Network.USER_LEFT_ROOM));
+			if(sender != sfs.mySelf)
+			{
+			
+			switch(dataObj.getUtfString("commandName"))
+			{
+				case "readyStateUpdate": { opponentReady(); break; }
+				case "movementUpdate": { opponentMoved( dataObj.getUtfString("movementDirection"));break; }
+			}
+			
+			}
+		}
+		
+		public function sendReadyUpdate()
+		{
+			var dataObj:ISFSObject = new SFSObject();
+			dataObj.putUtfString("commandName", "readyStateUpdate");
+			dataObj.putBool("isReady", true);
+         
+			sfs.send(new ObjectMessageRequest(dataObj));
+		}
+		
+		public function sendMovementUpdate(movementDirection:String)
+		{
+			var dataObj:ISFSObject = new SFSObject();
+			dataObj.putUtfString("commandName", "movementUpdate");
+			dataObj.putUtfString("movementDirection", movementDirection);
+         
+			sfs.send(new ObjectMessageRequest(dataObj));
+		}
+		
+		//
+		
+		private function opponentReady()
+		{
+			
+		}
+		
+		private function opponentMoved( opponentMove:String )
+		{
+			dispatchEvent(new Event(Network.OTHER_USER_MOVED));
 		}
 		/*	
 		

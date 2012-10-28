@@ -24,6 +24,8 @@ package model
 		
 		private var gameState:GameState = new GameState();
 		
+		public static var GAME_STARTED:String = "gameStarted";
+		
 		public function Model():void {
 			if (!allowInstantiation) {
 			throw new Error("Error: Instantiation failed: Use SingletonDemo.getInstance() instead of new.");
@@ -61,6 +63,17 @@ package model
 		public function getGameRoomsList()
 		{
 			network.getGameRoomsList();
+		}
+		
+		public function sendReadyUpdate()
+		{
+			network.sendReadyUpdate();
+			gameState.iAmReady = true;
+		}
+		
+		private function checkGameStart():Boolean
+		{
+			return gameState.iAmReady && gameState.opponentReady;
 		}
 		
 		private function addNetworkEventListeners()
