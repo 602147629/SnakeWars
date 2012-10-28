@@ -100,16 +100,18 @@
 			sfs.addEventListener(SFSEvent.ROOM_ADD, onRoomCreated);
 			
 			sfs.addEventListener(SFSEvent.ROOM_FIND_RESULT, onRoomFindResult);
+			
+			sfs.addEventListener(SFSEvent.ROOM_JOIN, onJoin);
+			sfs.addEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinError);
+			
 			//sfs.addEventListener(SFSEvent.USER_FIND_RESULT, onUserFindResult);
 						
 			//sfs.addEventListener(SFSEvent.ROOM_ADD, roomAddHandler);
 			//sfs.addEventListener(SFSEvent.ROOM_REMOVE, roomRemoveHandler);
 			
-			//sfs.addEventListener(SFSEvent.USER_ENTER_ROOM, userEnterRoomHandler);
-			//sfs.addEventListener(SFSEvent.USER_EXIT_ROOM, userExitRoomHandler);		
+			sfs.addEventListener(SFSEvent.USER_ENTER_ROOM, userEnterRoomHandler);
+			sfs.addEventListener(SFSEvent.USER_EXIT_ROOM, userExitRoomHandler);		
 			
-			//sfs.addEventListener(SFSEvent.ROOM_JOIN, onJoin);
-			//sfs.addEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinError);
 						
 			//sfs.addEventListener(SFSEvent.PUBLIC_MESSAGE, onPublicMessage);
 			//sfs.addEventListener(SFSEvent.PRIVATE_MESSAGE, onPrivateMessage);
@@ -166,6 +168,7 @@
 		private function onRoomCreated(evt:SFSEvent):void
      	{
          	trace("Room created: " + evt.params.room);
+			joinRoom(Room(evt.params.room).id);
      	}
 				
 		public function getGameRoomsList()
@@ -197,28 +200,49 @@
 				dispatchEvent(new Event(Network.GAME_LIST_RECEIVED));				
 			}
 		}
-		/*
+				
+		public function joinRoom(roomId:int)
+		{
+			sfs.send(new JoinRoomRequest(roomId));
+		}
+				
 		private function onJoin(evt:SFSEvent):void
 		{
 			var roomJoined:Room = evt.params.room;
-			evaluateRoom(roomJoined);
-			//trace("joined room!");
+			//evaluateRoom(roomJoined);
+			trace("joined room!");
+			if (roomJoined.isGame == true) dispatchEvent(new Event(Network.GAME_ROOM_ENTERED));
 		}
-				
+							
+		private function onJoinError(evt:SFSEvent):void
+		{
+    		trace("Join failed: " + evt.params.errorMessage);
+			this.roomJoinErrorMessage = evt.params.errorMessage;
+			dispatchEvent(new Event(Network.ROOM_JOIN_ERROR));
+		}
+			
+		
 		private function userEnterRoomHandler(evt:SFSEvent) 
 		{
 			var room:Room = evt.params.room;
             var user:User = evt.params.user;
-			//evaluateRoom(room);
 			
-			
-			userNameJoinedRoom = user.name;
-		    roomIdJoinedByUser = room.id;		
-			
-			//trace("user enter room handler");
+			trace("user enter room handler ================>>>>");
 			
 			dispatchEvent(new Event(Network.USER_JOINED_ROOM));
 		}
+		
+		private function userExitRoomHandler(evt:SFSEvent) {
+			var room:Room = evt.params.room;
+            var user:User = evt.params.user;
+			
+			userNameLeftRoom = user.name;
+			roomIdLeftByUser = room.id;
+			
+			dispatchEvent(new Event(Network.USER_LEFT_ROOM));
+		}
+		/*	
+		
 		
 		private function evaluateRoom(room:Room)
 		{
@@ -238,19 +262,6 @@
 				//test
 				//getGameRoomsList();
 			}
-		}
-				
-		public function joinRoom()
-		{
-			
-		}
-		
- 
-		private function onJoinError(evt:SFSEvent):void
-		{
-    		trace("Join failed: " + evt.params.errorMessage);
-			this.roomJoinErrorMessage = evt.params.errorMessage;
-			dispatchEvent(new Event(Network.ROOM_JOIN_ERROR));
 		}
 		
 		private function onPublicMessage(evt:SFSEvent):void
@@ -279,17 +290,7 @@
 			deletedRoomId = room.id;
 			dispatchEvent(new Event(Network.ROOM_DELETED));
 		}
-				
-		private function userExitRoomHandler(evt:SFSEvent) {
-			var room:Room = evt.params.room;
-            var user:User = evt.params.user;
-			
-			userNameLeftRoom = user.name;
-			roomIdLeftByUser = room.id;
-			
-			dispatchEvent(new Event(Network.USER_LEFT_ROOM));
-		}
-		     
+		
      	private function onRoomCreationError(evt:SFSEvent):void
      	{
          	trace("Room creation failed: " + evt.params.errorMessage);

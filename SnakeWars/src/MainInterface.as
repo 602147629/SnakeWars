@@ -33,6 +33,7 @@ package
 			modelInst = Model.getInstance();
 			modelInst.addEventListener(Model.CONNECT_AND_AUTH_OK, connectAndAuthOkHandler);
 			modelInst.addEventListener(Model.GAME_LIST_RECEIVED, gameListReceivedHandler);
+			modelInst.addEventListener(Model.GAME_ROOM_ENTERED, gameRoomEnteredHandler);
 			
 			// Initiate view
 			viewInst = new View();
@@ -60,6 +61,11 @@ package
 		{
 			trace("game list received");
 			viewInst.addGameRooms(modelInst.gameListArray);
+		}
+		
+		private function gameRoomEnteredHandler(e:Event):void
+		{
+			viewInst.goToGameScreen();
 		}
 		
 		private function createGameRoomHandler(e:Event):void
