@@ -10,6 +10,8 @@ package model.game
 		public var iAmReady:Boolean = false;
 		public var opponentReady:Boolean = false;
 		
+		public var playGrid:Array = new Array();
+		
 		public function GameState() 
 		{
 			
@@ -19,6 +21,26 @@ package model.game
 		{
 			iAmReady = false;
 			opponentReady = false;
+		}
+		
+		public function insertMySnake()
+		{
+			
+		}
+		
+		public function insertEnemySnake()
+		{
+			
+		}
+		
+		public function moveMySnake(direction:String)
+		{
+			
+		}
+		
+		public function moveOpponentSnake(direction:String)
+		{
+			
 		}
 		
 	}
