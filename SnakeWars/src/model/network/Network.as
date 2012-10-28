@@ -1,7 +1,6 @@
 ﻿package model.network 
 {
 
-	import flash.display.MovieClip;
 	import com.smartfoxserver.v2.SmartFox;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.*;
@@ -11,6 +10,7 @@
 	import com.smartfoxserver.v2.entities.variables.*;
 	import com.smartfoxserver.v2.entities.invitation.*;
 	import com.smartfoxserver.v2.requests.game.*;
+	import model.game.GameLoop;
 	import starling.events.EventDispatcher;
 	
 	import com.smartfoxserver.v2.core.SFSBuddyEvent;
@@ -20,7 +20,7 @@
 	import starling.events.Event;
 	
 	import com.smartfoxserver.v2.exceptions.SFSError;
-	import model.game.ISyncObject;
+	import model.game.*;
 
 	public class Network extends EventDispatcher
 	{
@@ -82,6 +82,10 @@
 		
 		public static var OTHER_USER_MOVED:String = "otherUserMoved";
 		public var enemyMovementDirection:String = "";
+		
+		//UGLY!!
+		
+		var gameLoop:GameLoop = GameLoop.getInstance();
 				
 		public function Network()
 		{
@@ -167,13 +171,14 @@
 		{
 			var roomSettings:RoomSettings = new RoomSettings("r" + Math.ceil(Math.random() * 2) + Math.ceil(Math.random() * 33) + Math.ceil(Math.random() * 123) );
 			roomSettings.isGame = true;
+			roomSettings.name = sfs.mySelf.name;
 			sfs.send( new CreateRoomRequest( roomSettings ));
 		}
 				
 		private function onRoomCreated(evt:SFSEvent):void
      	{
          	trace("Room created: " + evt.params.room);
-			joinRoom(Room(evt.params.room).id);
+			if( Room(evt.params.room).name == sfs.mySelf.name )  joinRoom(Room(evt.params.room).id);
      	}
 				
 		public function getGameRoomsList()
@@ -215,7 +220,7 @@
 			var roomJoined:Room = evt.params.room;
 			//evaluateRoom(roomJoined);
 			trace("joined room!");
-			if (roomJoined.isGame == true) dispatchEvent(new Event(Network.GAME_ROOM_ENTERED));
+			if (roomJoined.isGame == true && sfs.mySelf.isJoinedInRoom(roomJoined)) dispatchEvent(new Event(Network.GAME_ROOM_ENTERED));
 		}
 							
 		private function onJoinError(evt:SFSEvent):void
@@ -232,8 +237,7 @@
             var user:User = evt.params.user;
 			
 			trace("user enter room handler ================>>>>");
-			
-			dispatchEvent(new Event(Network.USER_JOINED_ROOM));
+			if(sfs.mySelf.isJoinedInRoom(room)) dispatchEvent(new Event(Network.USER_JOINED_ROOM));
 		}
 		
 		private function userExitRoomHandler(evt:SFSEvent) 
@@ -244,7 +248,7 @@
 			userNameLeftRoom = user.name;
 			roomIdLeftByUser = room.id;
 			trace("user exit room");
-			if (room.isGame) 
+			if (room.isGame && sfs.mySelf.isJoinedInRoom(room)) 
 			{
 				
 				dispatchEvent(new Event(Network.USER_LEFT_ROOM));
@@ -297,10 +301,21 @@
 		
 		private function opponentMoved( opponentMove:String )
 		{
-			dispatchEvent(new Event(Network.OTHER_USER_MOVED));
+			Movement.OPPONENT_SNAKE_MOVEMENT = opponentMove;
+			//dispatchEvent(new Event(Network.OTHER_USER_MOVED));
 		}
-		/*	
 		
+		public function startInterpolatingMove()
+		{
+			gameLoop.addEventListener(GameLoop.TICK, gameTick);
+		}
+		
+		private function gameTick(e:Event)
+		{
+			sendMovementUpdate( Movement.MY_SNAKE_MOVEMENT );
+		}
+		
+		/*	
 		
 		private function evaluateRoom(room:Room)
 		{

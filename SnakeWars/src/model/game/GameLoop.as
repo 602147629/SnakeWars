@@ -5,13 +5,19 @@ package model.game
 	 * @author Mihai Raulea
 	 */
 	
-	import flash.events.*;
-	import flash.utils.Timer; 
+	import starling.events.Event;
+	import starling.display.*;
+	import starling.events.*;
+	import flash.utils.setTimeout; 
 	
-	public class GameLoop 
+	public class GameLoop extends EventDispatcher
 	{
 		
-		var gameTimer:Timer = new Timer(120);
+				
+		public static var instance:GameLoop;
+		private static var allowInstantiation:Boolean = false;
+		
+		private var stageParam:Stage;
 		
 		var gameState:GameState = new GameState();
 		
@@ -20,39 +26,78 @@ package model.game
 		private var goLeft:Boolean = false;
 		private var goRight:Boolean = false;
 	
-		public function GameLoop() 
+		public static var TICK:String = "tick";
+		
+		public function GameLoop():void {
+			if (!allowInstantiation) {
+			throw new Error("Error: Instantiation failed: Use SingletonDemo.getInstance() instead of new.");
+			}
+		}
+		
+		public function setStageRef(stage:Stage)
 		{
+			trace("SET STAGE REF");
+			this.stageParam = stage;
 			setGameState();
 			setWebControls();
-			setMainLoop();
+		}
+		
+		public static function getInstance():GameLoop {
+			
+			if (instance == null) 
+			{
+				allowInstantiation = true;
+				instance = new GameLoop();
+				allowInstantiation = false;
+			}
+			
+			return instance;
 		}
 		
 		private function setGameState()
 		{
-			
+			setTimeout(timerHandler,150);
 		}
 		
 		private function setMainLoop()
 		{
-			gameTimer.addEventListener(TimerEvent.TIMER, timerHandler);
-			gameTimer.start();
+	
 		}
 		
-		private function timerHandler(e:TimerEvent):void
+		private function timerHandler():void
 		{
-			trace("timer handler");
+			trace(Movement.MY_SNAKE_MOVEMENT);
 			gameState.moveMySnake(Movement.MY_SNAKE_MOVEMENT);
 			gameState.moveOpponentSnake(Movement.OPPONENT_SNAKE_MOVEMENT);
+			setTimeout(timerHandler, 100);
+			dispatchEvent(new Event(GameLoop.TICK));
 		}
 		
 		private function setWebControls()
 		{
-			addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+			stageParam.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 		}
 		
 		private function keyDownHandler(e:KeyboardEvent):void
 		{
-			trace(e.keyCode + " key code");
+			//trace("key down!!");
+			//trace(e.keyCode + " key code");
+			Movement.MY_SNAKE_MOVEMENT = convertKeyCodeToMovementConstants(e.keyCode);
+			//trace(Movement.MY_SNAKE_MOVEMENT);
+			//trace("");
+		}
+		
+		private function convertKeyCodeToMovementConstants(keyChar:int):String
+		{
+			switch(keyChar)
+			{
+				case 38: { return MovementConstants.MOVE_FORWARD; }
+				case 40: { return MovementConstants.MOVE_BACK; }
+				case 37: { return MovementConstants.MOVE_LEFT; }
+				case 39: { return MovementConstants.MOVE_RIGHT; }
+			}
+			
+			return Movement.MY_SNAKE_MOVEMENT;
 		}
 		
 	}
