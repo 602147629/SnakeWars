@@ -4,6 +4,7 @@ package view
 	import view.util.ContentManipulator;
 	import starling.events.Event;
 	import view.util.ContentRequester;
+	import view.screens.*;
 	
 	public class View extends Sprite
 	{
@@ -31,9 +32,16 @@ package view
 			contentManipulator.init();
 			addChild(contentManipulator);
 			
+			contentManipulator.addEventListener(ContentRequester.USERNAME_SELECTED, usernameSelectedHandler);
+			
 			contentManipulator.addEventListener(ContentManipulator.CONTENT_CHANGED, contentChangedHandler);
 			contentManipulator.addEventListener(ContentRequester.REQUEST_ROOM_LIST, getRoomListHandler);
 			contentManipulator.addEventListener(ContentRequester.CREATE_ROOM, createRoomHandler);
+		}
+		
+		private function usernameSelectedHandler(e:Event):void
+		{
+			desiredUsername = FirstScreen(e.target).UserName;
 		}
 		
 		// start requests

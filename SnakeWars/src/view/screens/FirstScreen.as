@@ -72,6 +72,11 @@ package view.screens
 			isInit = true;
 		}
 		
+		public function get UserName():String
+		{
+			return this.userName;
+		}
+		
 		private function textInputOnChange(textInput:TextInput):void
 		{
 			this.userName = textInput.text;
@@ -80,7 +85,7 @@ package view.screens
 		private function onPlayHandler(e:Event):void
 		{
 			// Select Username
-			
+			selectUsername();
 			
 			// Request new content
 			//this.requestContent(1, userName);
