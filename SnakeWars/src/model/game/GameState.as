@@ -18,6 +18,8 @@ package model.game
 		public var mySnake:Snake;
 		public var enemySnake:Snake;
 		
+		public var myPlayerNumber:int = 1;
+		
 		public function GameState() 
 		{
 			initPlayGrid();
@@ -78,6 +80,8 @@ package model.game
 			var lastPost:Point = mySnake.dequeue();
 			playGrid[lastPost.x][lastPost.y] = 0;
 			
+			trace("move my snake");
+			
 			switch(direction)
 			{
 				case MovementConstants.MOVE_BACK:
@@ -103,6 +107,8 @@ package model.game
 		{
 			var lastPost:Point = enemySnake.dequeue();
 			playGrid[lastPost.x][lastPost.y] = 0;
+			
+			trace("move opponent snake");
 			
 			switch(direction)
 			{

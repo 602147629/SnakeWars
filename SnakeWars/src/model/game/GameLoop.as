@@ -19,7 +19,7 @@ package model.game
 		
 		private var stageParam:Stage;
 		
-		var gameState:GameState = new GameState();
+		public var gameState:GameState = new GameState();
 		
 		private var goUp:Boolean = false;
 		private var goDown:Boolean = false;
@@ -56,6 +56,7 @@ package model.game
 		
 		private function setGameState()
 		{
+			gameState
 			setTimeout(timerHandler,150);
 		}
 		
@@ -69,7 +70,7 @@ package model.game
 			trace(Movement.MY_SNAKE_MOVEMENT);
 			gameState.moveMySnake(Movement.MY_SNAKE_MOVEMENT);
 			gameState.moveOpponentSnake(Movement.OPPONENT_SNAKE_MOVEMENT);
-			setTimeout(timerHandler, 100);
+			setTimeout(timerHandler, 125);
 			dispatchEvent(new Event(GameLoop.TICK));
 		}
 		

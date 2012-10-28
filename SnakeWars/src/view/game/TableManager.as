@@ -1,6 +1,7 @@
 package view.game 
 {
 	import flash.display.BitmapData;
+	import model.game.GameLoop;
 	import starling.events.Event;
 	import flash.geom.Point;
 	import model.game.GameState;
@@ -30,13 +31,14 @@ package view.game
 		private var snakeData:Texture;
 		private var enemySnakeData:Texture;
 		
-		private var gameState:GameState;
+		private var gameLoop:GameLoop;
+		
 		private var piecesArray:Array;
 		
 		public function TableManager() 
 		{
 			//gameState.getInstance();
-			gameState = new GameState();
+			gameLoop = GameLoop.getInstance();
 			
 			table = new Table();
 			tileArray = new Array();
@@ -44,7 +46,14 @@ package view.game
 			
 			cols = table.Cols;
 			rows = table.Rows;
-			
+			//
+			gameLoop.addEventListener(GameLoop.TICK, gameTick);
+		}
+		
+		private function gameTick(e:Event)
+		{
+			trace("game tick");
+			drawSnakesOnGrid( gameLoop.gameState.playGrid );
 		}
 		
 		public function drawGrid(widthMax:Number, heightMax:Number):void
@@ -73,12 +82,13 @@ package view.game
 					addChild(tileVisual);
 				}
 			}
-			
+			/*
 			drawSnakesOnGrid(gameState.playGrid);
 			gameState.moveOpponentSnake("moveForward");
 			drawSnakesOnGrid(gameState.playGrid);
 			gameState.moveOpponentSnake("moveRight");
 			drawSnakesOnGrid(gameState.playGrid);			
+			*/
 		}
 		
 		public function drawSnakesOnGrid(gameStateArray:Array):void
