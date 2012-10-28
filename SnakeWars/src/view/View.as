@@ -11,6 +11,14 @@ package view
 		
 		// events
 		public static var USERNAME_SELECTED:String = "usernameSelected";		
+		public var desiredUsername:String;
+		
+		public static var REFRESH_GAME_ROOMS_REQUEST:String = "refreshGameRooms";
+		
+		public static var JOIN_ROOM_REQUEST:String = "joinRoomRequest";
+		public var gameId:int = 0;
+		
+		// end events
 		
 		public function View() 
 		{
@@ -27,6 +35,26 @@ package view
 			contentManipulator.addEventListener(ContentRequester.REQUEST_ROOM_LIST, getRoomListHandler);
 			contentManipulator.addEventListener(ContentRequester.CREATE_ROOM, createRoomHandler);
 		}
+		
+		// start requests
+		
+		public function moveToLobby()
+		{
+			
+		}
+		
+		// gameRoomsArray - id-uri
+		public function addGameRooms(gameRoomsArray:Array)
+		{
+			
+		}
+		
+		public function moveToGame()
+		{
+			
+		}
+		
+		// end requests
 		
 		private function contentChangedHandler(e:Event):void
 		{
